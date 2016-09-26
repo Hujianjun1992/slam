@@ -1,0 +1,1 @@
+g++      CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o  -o ../../bin/laser_data_show  -L/home/ics/hu/slam_by_myself/lib -rdynamic ../../lib/libhokuyo.a -lboost_system -lboost_thread -lboost_chrono -lboost_date_time -lboost_atomic -Wl,-rpath,/home/ics/hu/slam_by_myself/lib 

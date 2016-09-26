@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/hokuyo.h
+stdexcept
+-
+termios.h
+-
+string
+-
+vector
+-
+stdint.h
+-
+limits
+-
+
+../include/myself.h
+
+/home/ics/hu/slam_by_myself/src/laser_data_show.cpp
+iostream
+-
+unistd.h
+-
+boost/function.hpp
+-
+boost/thread/thread.hpp
+-
+boost/thread/mutex.hpp
+-
+boost/thread/recursive_mutex.hpp
+-
+hokuyo.h
+/home/ics/hu/slam_by_myself/src/hokuyo.h
+myself.h
+/home/ics/hu/slam_by_myself/src/myself.h
+
