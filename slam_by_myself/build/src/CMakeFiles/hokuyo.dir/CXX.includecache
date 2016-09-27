@@ -20,7 +20,7 @@ stdint.h
 limits
 -
 
-/home/ics/hu/slam_by_myself/src/hokuyo.cpp
+/home/ics/slam/slam_by_myself/src/hokuyo.cpp
 stdio.h
 -
 string.h
@@ -36,7 +36,7 @@ poll.h
 signal.h
 -
 hokuyo.h
-/home/ics/hu/slam_by_myself/src/hokuyo.h
+/home/ics/slam/slam_by_myself/src/hokuyo.h
 algorithm
 -
 time.h

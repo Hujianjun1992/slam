@@ -21,8 +21,9 @@ class OpenRadar
 {
 private:
 
-  typedef boost::function<void(const hokuyo::LaserScan &)> UseScanFunction;
-  UseScanFunction useScan_;
+  //  typedef boost::function<void(const hokuyo::LaserScan &)> UseScanFunction;
+  //  UseScanFunction useScan_;
+  boost::function<void(const hokuyo::LaserScan &)> useScan_;
 
   boost::shared_ptr<boost::thread> scan_thread_;
 
@@ -215,8 +216,9 @@ public:
           first_scan_ = false;
           cout << "Streaming data." << endl;
         }
-        //        useScan_(scan_);
         useScan_ = boost::bind(&OpenRadar::getlaserdata, this, _1);
+
+        useScan_(scan_);
       }
     try {
       laser_.stopScanning();
@@ -228,8 +230,13 @@ public:
 
   void getlaserdata(const hokuyo::LaserScan &scan)
   {
-    cout << "hujianjun" << endl;
-    cout << scan.ranges[40] << endl;
+    //    cout << "hujianjun" << endl;
+    for (int i = 0; i < scan.ranges.size(); ++i) {
+      cout << scan.ranges[i] ;
+    }
+
+    cout << "\t" << "laser_data" << endl;
+
   }
 };
 
