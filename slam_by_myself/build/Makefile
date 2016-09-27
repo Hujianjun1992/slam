@@ -124,6 +124,19 @@ laser_data_show/fast:
 .PHONY : laser_data_show/fast
 
 #=============================================================================
+# Target rules for targets named hokuyo_driver
+
+# Build rule for target.
+hokuyo_driver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hokuyo_driver
+.PHONY : hokuyo_driver
+
+# fast build rule for target.
+hokuyo_driver/fast:
+	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
+.PHONY : hokuyo_driver/fast
+
+#=============================================================================
 # Target rules for targets named hokuyo
 
 # Build rule for target.
@@ -145,6 +158,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... laser_data_show"
+	@echo "... hokuyo_driver"
 	@echo "... hokuyo"
 .PHONY : help
 

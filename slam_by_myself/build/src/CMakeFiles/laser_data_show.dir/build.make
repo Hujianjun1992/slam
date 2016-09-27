@@ -90,12 +90,32 @@ laser_data_show_EXTERNAL_OBJECTS =
 
 ../bin/laser_data_show: src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o
 ../bin/laser_data_show: src/CMakeFiles/laser_data_show.dir/build.make
-../bin/laser_data_show: ../lib/libhokuyo.a
+../bin/laser_data_show: ../lib/libhokuyo_driver.a
 ../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_system.so
 ../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_thread.so
 ../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
 ../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
 ../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+../bin/laser_data_show: /usr/local/lib/libopencv_videostab.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_ts.a
+../bin/laser_data_show: /usr/local/lib/libopencv_superres.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_stitching.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_contrib.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_nonfree.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_ocl.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_gpu.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_photo.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_objdetect.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_legacy.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_video.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_ml.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_calib3d.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_features2d.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_highgui.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_imgproc.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_flann.so.2.4.13
+../bin/laser_data_show: /usr/local/lib/libopencv_core.so.2.4.13
+../bin/laser_data_show: ../lib/libhokuyo.a
 ../bin/laser_data_show: src/CMakeFiles/laser_data_show.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/laser_data_show"
 	cd /home/ics/slam/slam_by_myself/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/laser_data_show.dir/link.txt --verbose=$(VERBOSE)

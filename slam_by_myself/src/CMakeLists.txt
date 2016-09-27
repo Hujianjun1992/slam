@@ -22,7 +22,10 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 #add_library(hokuyo_wrapper hokuyo_wrapper.cpp)
 #target_link_libraries(hokuyo_wrapper Urg_driver connect_utils Connection_information)
 add_library(hokuyo hokuyo.cpp)
+add_library(hokuyo_driver hokuyo_driver.cpp)
+target_link_libraries(hokuyo_driver hokuyo ${Boost_LIBRARIES} ${OpenCV_LIBS})
+
 
 
 add_executable(laser_data_show laser_data_show.cpp)
-target_link_libraries(laser_data_show hokuyo ${Boost_LIBRARIES})
+target_link_libraries(laser_data_show hokuyo_driver ${Boost_LIBRARIES} ${OpenCV_LIBS})

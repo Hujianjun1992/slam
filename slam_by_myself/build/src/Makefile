@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/ics/slam/slam_by_myself/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -77,6 +66,17 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/local/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -126,6 +126,21 @@ laser_data_show/fast:
 .PHONY : laser_data_show/fast
 
 # Convenience name for target.
+src/CMakeFiles/hokuyo_driver.dir/rule:
+	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo_driver.dir/rule
+.PHONY : src/CMakeFiles/hokuyo_driver.dir/rule
+
+# Convenience name for target.
+hokuyo_driver: src/CMakeFiles/hokuyo_driver.dir/rule
+
+.PHONY : hokuyo_driver
+
+# fast build rule for target.
+hokuyo_driver/fast:
+	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
+.PHONY : hokuyo_driver/fast
+
+# Convenience name for target.
 src/CMakeFiles/hokuyo.dir/rule:
 	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo.dir/rule
 .PHONY : src/CMakeFiles/hokuyo.dir/rule
@@ -167,6 +182,33 @@ hokuyo.cpp.s:
 	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/hokuyo.cpp.s
 .PHONY : hokuyo.cpp.s
 
+hokuyo_driver.o: hokuyo_driver.cpp.o
+
+.PHONY : hokuyo_driver.o
+
+# target to build an object file
+hokuyo_driver.cpp.o:
+	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
+.PHONY : hokuyo_driver.cpp.o
+
+hokuyo_driver.i: hokuyo_driver.cpp.i
+
+.PHONY : hokuyo_driver.i
+
+# target to preprocess a source file
+hokuyo_driver.cpp.i:
+	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.i
+.PHONY : hokuyo_driver.cpp.i
+
+hokuyo_driver.s: hokuyo_driver.cpp.s
+
+.PHONY : hokuyo_driver.s
+
+# target to generate assembly for a file
+hokuyo_driver.cpp.s:
+	cd /home/ics/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.s
+.PHONY : hokuyo_driver.cpp.s
+
 laser_data_show.o: laser_data_show.cpp.o
 
 .PHONY : laser_data_show.o
@@ -200,13 +242,17 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... laser_data_show"
+	@echo "... edit_cache"
+	@echo "... hokuyo_driver"
 	@echo "... hokuyo"
 	@echo "... hokuyo.o"
 	@echo "... hokuyo.i"
 	@echo "... hokuyo.s"
+	@echo "... hokuyo_driver.o"
+	@echo "... hokuyo_driver.i"
+	@echo "... hokuyo_driver.s"
 	@echo "... laser_data_show.o"
 	@echo "... laser_data_show.i"
 	@echo "... laser_data_show.s"
