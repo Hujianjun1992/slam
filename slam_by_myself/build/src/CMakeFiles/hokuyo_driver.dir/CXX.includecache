@@ -27,6 +27,8 @@ boost/function.hpp
 -
 boost/thread/thread.hpp
 -
+boost/thread/mutex.hpp
+-
 opencv2/core/core.hpp
 -
 opencv2/highgui/highgui.hpp

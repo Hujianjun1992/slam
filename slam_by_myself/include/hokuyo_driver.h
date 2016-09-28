@@ -3,13 +3,16 @@
 #include <iostream>
 #include <boost/function.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/thread/mutex.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
-
 #include "hokuyo.h"
 
 using namespace std;
 using namespace cv;
+
+extern boost::mutex io_mutex;
+extern Mat image;
 
 struct HokuyoConfig
 {

@@ -249,6 +249,7 @@ HokuyoDriver::scanThread()
       cout << "Streaming data." << endl;
     }
     useScan_ = boost::bind(&HokuyoDriver::DrawLaserData, this, _1);
+    //    useScan_ = boost::bind(&HokuyoDriver::getLaserData, this, _1);
     useScan_(scan_);
   }
   try {
@@ -263,19 +264,76 @@ HokuyoDriver::scanThread()
 void
 HokuyoDriver::getLaserData(const hokuyo::LaserScan &scan)
 {
- //  for (int i = 0; i < scan.ranges.size(); ++i) {
- //    cout << scan.ranges[i];
- // }
- //  cout << endl;
+   for (int i = 0; i < scan.ranges.size(); ++i) {
+     cout << "scan.ranged[i] :" << scan.ranges[i] << endl;
+  }
+   cout << "hujianjun" << endl;
 }
 
 void
 HokuyoDriver::DrawLaserData(const hokuyo::LaserScan &scan)
 {
-   cout << scan.ranges.size() << endl;
 
-   // Mat image(800, 800, CV_8UC3, Scalar(0,255,0));
+  //  cout << scan.ranges.size() << endl;
+  int x,y;
+  double theta,rho;
+  unsigned char * pPixel = 0;
+  int halfcols =  400;//image.cols/2;  //x  width
+  int halfrows =  400;//image.rows/2;  //y  height
 
-   // imshow("laser_data",image);
+  float start_ang = -config_.max_ang*180.0/M_PI + 90.0 + 90.0;
+  //  cout << "start_ang :" << start_ang << endl;
+  //  float start_ang = (config_.min_ang * 180.0) /M_PI - 90.0;
 
+  //  cout << "start_ang: " << start_ang << "." << endl;
+  // cout << halfcols << endl;
+  // cout << halfrows << endl;
+
+  io_mutex.lock();
+  cout << RED"hujianjun" RESET << endl;
+  for (int i = 0; i < scan.ranges.size(); ++i) {
+    theta = (i/4.0 + start_ang)*M_PI/180.0;
+    rho = scan.ranges[i];
+
+    //    cout << scan.ranges[i] << endl;
+
+    //    cout << rho*100.0 << endl;
+    x = (int) (rho*cos(theta)*100) + halfcols;
+    y = (int) (rho*sin(theta)*100) + halfrows;
+
+    //    cout << "x :" << x << endl;
+    //    cout << "y :" << y << endl;
+
+    circle(image,Point(halfcols,halfrows), 5, CV_RGB(255, 0, 0), -1, 8);
+    if(x >= 0 && x < image.cols && y >= 0 && y < image.rows)
+      {
+        //        pPixel = (unsigned char*)image.
+        image.at<Vec3b>(x,y)[0] = 255;
+        image.at<Vec3b>(x,y)[1] = 0;
+        image.at<Vec3b>(x,y)[2] = 0;
+      }
+    else
+      {
+
+      }
+
+    //    cout << scan.ranges[i];
+  }
+  io_mutex.unlock();
+  // //
+  // tu.unlock();
+  //     Mat image(800, 800, CV_8UC3, Scalar(0,255,0));
+
+  //     imshow("laser_data",image);
+
+  //     while(1)
+  //     {
+  // tu.lock();
+  // imshow("imgae", imgae);
+  // tu.unlock();
+  // 	    if (waitKey(33) == 27)
+  // 	    {
+  // 		    return;
+  // 	    }
+  //     }
 }

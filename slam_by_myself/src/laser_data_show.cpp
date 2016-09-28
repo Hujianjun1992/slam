@@ -2,6 +2,9 @@
 #include <opencv2/opencv.hpp>
 using namespace cv;
 
+boost::mutex io_mutex;
+Mat image(800, 800, CV_8UC3, Scalar(0, 255, 0));
+
 int main(int argc, char *argv[])
 {
   HokuyoConfig config;
@@ -20,15 +23,18 @@ int main(int argc, char *argv[])
 
   hokuyodriver.doOpen();
   hokuyodriver.doStart();
+
   while(1)
     {
-      Mat image(800, 800, CV_8UC3, Scalar(0, 255, 0));
+      io_mutex.lock();
       imshow("test", image);
-      if(waitKey(10) == 27)
+      image = Mat::zeros(800, 800, CV_8UC3);
+      io_mutex.unlock();
+      if((char)cv::waitKey(33) == 'q')
         {
-        cout << "test" << endl;
-        break;
+          break;
         }
+
     }
 
   hokuyodriver.doClose();
