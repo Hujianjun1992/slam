@@ -1,5 +1,10 @@
 # pragma once
 
+#include <iostream>
+#include <string>
+using namespace std;
+
+
 //the following are UBUNTU/LINUX ONLY terminal color
 #define RESET "\033[0m"
 #define BLACK "\033[30m" /* Black */
@@ -18,3 +23,12 @@
 #define BOLDMAGENTA "\033[1m\033[35m" /* Bold Magenta */
 #define BOLDCYAN "\033[1m\033[36m" /* Bold Cyan */
 #define BOLDWHITE "\033[1m\033[37m" /* Bold White */
+
+
+
+template<class T>
+void info_show(string str,T arg)
+{
+  //  string str = atos(arg);
+  cout << YELLOW"\t" << str << ":" << arg << RESET << endl;
+}

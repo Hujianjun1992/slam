@@ -6,6 +6,16 @@
 
 #IncludeRegexTransform: 
 
+../include/QSort.h
+
+../include/WeightedFit.h
+cmath
+-
+cstdlib
+-
+QSort.h
+../include/QSort.h
+
 ../include/hokuyo.h
 stdexcept
 -
@@ -23,6 +33,8 @@ limits
 ../include/hokuyo_driver.h
 iostream
 -
+vector
+-
 boost/function.hpp
 -
 boost/thread/thread.hpp
@@ -35,14 +47,22 @@ opencv2/highgui/highgui.hpp
 -
 hokuyo.h
 ../include/hokuyo.h
-
+WeightedFit.h
+../include/WeightedFit.h
+myself.h
 ../include/myself.h
 
-/home/ics/slam/slam_by_myself/src/hokuyo_driver.cpp
+../include/myself.h
+iostream
+-
+string
+-
+
+/home/ics/git/slam/slam_by_myself/src/hokuyo_driver.cpp
 hokuyo_driver.h
-/home/ics/slam/slam_by_myself/src/hokuyo_driver.h
+/home/ics/git/slam/slam_by_myself/src/hokuyo_driver.h
 myself.h
-/home/ics/slam/slam_by_myself/src/myself.h
+/home/ics/git/slam/slam_by_myself/src/myself.h
 
 /usr/local/include/opencv2/core/core.hpp
 opencv2/core/types_c.h

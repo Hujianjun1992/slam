@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/QSort.h
+
+../include/WeightedFit.h
+cmath
+-
+cstdlib
+-
+QSort.h
+../include/QSort.h
+
+/home/ics/git/slam/slam_by_myself/src/WeightedFit.cpp
+WeightedFit.h
+/home/ics/git/slam/slam_by_myself/src/WeightedFit.h
+

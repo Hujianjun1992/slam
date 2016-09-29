@@ -8,13 +8,13 @@ Mat image(800, 800, CV_8UC3, Scalar(0, 255, 0));
 int main(int argc, char *argv[])
 {
   HokuyoConfig config;
-  config.min_ang = -1.7;
-  config.max_ang = 1.7;
+  config.min_ang = -2.35;
+  config.max_ang = 2.35;
   config.intensity = false;
   config.cluster = 1;
   config.skip = 0;
   config.port = "/dev/ttyACM0";
-  config.calibrate_time = false;
+  config.calibrate_time = true;
   config.time_offset = 0;
   config.allow_unsafe_settings = false;
   config.state = true;
@@ -27,8 +27,7 @@ int main(int argc, char *argv[])
   while(1)
     {
       io_mutex.lock();
-      imshow("test", image);
-      image = Mat::zeros(800, 800, CV_8UC3);
+      imshow("laser data show", image);
       io_mutex.unlock();
       if((char)cv::waitKey(33) == 'q')
         {

@@ -1,23 +1,13 @@
 //#include <iostream>
 //#include <math.h>
 #include "hokuyo_driver.h"
+
 #include "myself.h"
 
 //using namespace std;
 
-HokuyoDriver::HokuyoDriver(HokuyoConfig& config)
+HokuyoDriver::HokuyoDriver(HokuyoConfig& config):config_(config)
 {
-  config_ = config;
-  // config_.min_ang = -1.7;
-  // config_.max_ang = 1.7;
-  // config_.intensity = false;
-  // config_.cluster = 1;
-  // config_.skip = 0;
-  // config_.port = "/dev/ttyACM0";
-  // config_.calibrate_time = true;
-  // config_.time_offset = 0;
-  // config_.allow_unsafe_settings = false;
-  // config_.state = false;
 }
 
 HokuyoDriver::~HokuyoDriver()
@@ -248,9 +238,10 @@ HokuyoDriver::scanThread()
       first_scan_ = false;
       cout << "Streaming data." << endl;
     }
-    useScan_ = boost::bind(&HokuyoDriver::DrawLaserData, this, _1);
-    //    useScan_ = boost::bind(&HokuyoDriver::getLaserData, this, _1);
-    useScan_(scan_);
+    useScan_ = boost::bind(&HokuyoDriver::DrawLaserData, this);
+    //    useScan_ = boost::bind(&HokuyoDriver::getLaserData, this);
+    useScan_();
+
   }
   try {
     laser_.stopScanning();
@@ -262,78 +253,300 @@ HokuyoDriver::scanThread()
 }
 
 void
-HokuyoDriver::getLaserData(const hokuyo::LaserScan &scan)
+HokuyoDriver::getLaserData()
 {
-   for (int i = 0; i < scan.ranges.size(); ++i) {
-     cout << "scan.ranged[i] :" << scan.ranges[i] << endl;
+   for (int i = 0; i < scan_.ranges.size(); ++i) {
+     cout << "scan.ranged[i] :" << scan_.ranges[i] << endl;
   }
    cout << "hujianjun" << endl;
 }
 
 void
-HokuyoDriver::DrawLaserData(const hokuyo::LaserScan &scan)
+HokuyoDriver::DrawLaserData()
 {
 
-  //  cout << scan.ranges.size() << endl;
-  int x,y;
-  double theta,rho;
-  unsigned char * pPixel = 0;
-  int halfcols =  400;//image.cols/2;  //x  width
-  int halfrows =  400;//image.rows/2;  //y  height
+  LaserDataCovert();
 
-  float start_ang = -config_.max_ang*180.0/M_PI + 90.0 + 90.0;
-  //  cout << "start_ang :" << start_ang << endl;
-  //  float start_ang = (config_.min_ang * 180.0) /M_PI - 90.0;
+  Mat image_tmp(800, 800, CV_8UC3, Scalar(20, 20, 20));
 
-  //  cout << "start_ang: " << start_ang << "." << endl;
-  // cout << halfcols << endl;
-  // cout << halfrows << endl;
+  CreateLaserImage(&image_tmp);
+
+
 
   io_mutex.lock();
-  cout << RED"hujianjun" RESET << endl;
-  for (int i = 0; i < scan.ranges.size(); ++i) {
-    theta = (i/4.0 + start_ang)*M_PI/180.0;
-    rho = scan.ranges[i];
+  image_tmp.copyTo(image);
+  io_mutex.unlock();
 
-    //    cout << scan.ranges[i] << endl;
+  cout << "\t" << RED << "show information " << RESET << endl;
+  info_show("scan.config.min_angle",scan_.config.min_angle);
+  info_show("scan.config.max_angle",scan_.config.max_angle);
+  info_show("scan.config.ang_increment",scan_.config.ang_increment);
+  info_show("scan.config.time_increment",scan_.config.time_increment);
+  info_show("scan.config.scan_time",scan_.config.scan_time);
+  info_show("scan.config.min_range",scan_.config.min_range);
+  info_show("scan.config.max_range",scan_.config.max_range);
+  info_show("scan.config.range_res",scan_.config.range_res);
+  info_show("scan.self_time_stamp",scan_.self_time_stamp);
+  info_show("scan.system_time_stamp",scan_.system_time_stamp);
 
-    //    cout << rho*100.0 << endl;
-    x = (int) (rho*cos(theta)*100) + halfcols;
-    y = (int) (rho*sin(theta)*100) + halfrows;
+}
 
-    //    cout << "x :" << x << endl;
-    //    cout << "y :" << y << endl;
+void
+HokuyoDriver::CreateLaserImage(Mat* LaserImage)
+{
+  //  cvZero(LaserImage);
 
-    circle(image,Point(halfcols,halfrows), 5, CV_RGB(255, 0, 0), -1, 8);
-    if(x >= 0 && x < image.cols && y >= 0 && y < image.rows)
+  int dx = LaserImage->cols/2;
+  int dy = LaserImage->rows/2;
+
+  circle(*LaserImage, Point(dx,dy), 5, CV_RGB(0, 0, 255));
+
+  int x,y;
+  float theta,rho;
+  float theta_offset = -M_PI/2;
+  int len_shift = 50;
+  unsigned char * pPixel = 0;
+
+  int colorIndex = 0,colorRGB;
+  int R = 255,G = 0, B = 0;
+  int pointCnt = 0;
+
+  for (int i = 0; i < LaserRho.size(); ++i) {
+    theta = LaserTheta.at(i);
+    rho = LaserRho.at(i);
+
+    if (rho < 0)
       {
-        //        pPixel = (unsigned char*)image.
-        image.at<Vec3b>(x,y)[0] = 255;
-        image.at<Vec3b>(x,y)[1] = 0;
-        image.at<Vec3b>(x,y)[2] = 0;
+        
       }
+    x = -(int)(rho*cos(theta+theta_offset)*len_shift) + dx;
+    y = (int)(rho*sin(theta+theta_offset)*len_shift) + dy;
+
+    if (x >= 0 && x < LaserImage->cols && y >= 0 && y < LaserImage->rows) {
+      pPixel = (unsigned char*)LaserImage->data + y*LaserImage->step + 3*x+2;
+      *pPixel = 255;
+    }
+    else{
+
+    }
+  }
+
+}
+
+int
+HokuyoDriver::BreakLadarRho()
+{
+  int breakCnt = 0;
+  int rho = 0;
+
+  int lastRho = LaserRho.at(0);
+  float theta = LaserTheta.at(0);
+
+  int dis = 0;
+  float Dmax = 0.5;
+
+  BreakedLaserRho.clear();
+  BreakedLaserTheta.clear();
+
+  BreakedLaserRho.push_back(lastRho);
+  BreakedLaserTheta.push_back(theta);
+
+  for (int i = 1; i < LaserRho.size(); i++) {
+    rho = LaserRho.at(i);
+    theta = LaserTheta.at(i);
+
+    BreakedLaserRho.push_back(rho);
+    BreakedLaserTheta.push_back(theta);
+    dis = abs(rho - lastRho);
+    if (dis < Dmax) {
+
+    }
     else
       {
+        BreakedLaserRho.push_back(-1);
+        BreakedLaserTheta.push_back(1000.0);
 
+        return breakCnt;
       }
-
-    //    cout << scan.ranges[i];
   }
-  io_mutex.unlock();
-  // //
-  // tu.unlock();
-  //     Mat image(800, 800, CV_8UC3, Scalar(0,255,0));
+}
 
-  //     imshow("laser_data",image);
 
-  //     while(1)
-  //     {
-  // tu.lock();
-  // imshow("imgae", imgae);
-  // tu.unlock();
-  // 	    if (waitKey(33) == 27)
-  // 	    {
-  // 		    return;
-  // 	    }
-  //     }
+int HokuyoDriver::PolyContourFit(int* X, int* Y, int n, float Eps)
+{
+
+  float dis = sqrt((float)(((X[0]-X[n-1])*(X[0]-X[n-1])) + ((Y[0]-Y[n-1])*(Y[0]-Y[n-1]))));
+  float cosTheta = (X[n-1] - X[0])/dis;
+  float sinTheta = -(Y[n-1] - Y[0])/dis;
+  float MaxDis = 0;
+  int i ;
+  int MaxDisInd = -1;
+  float dbDis;
+  for (i = 1; i < n - 1; i++) {
+    dbDis = abs( ( Y[i] - Y[0] ) * cosTheta + ( X[i] - X[0] ) * sinTheta );
+    if (dbDis > MaxDis) {
+      MaxDis = dbDis;
+      MaxDisInd = i;
+    }
+  }
+
+  if (MaxDis > Eps) {
+    return MaxDisInd;
+  }
+
+  return 0;
+}
+
+int
+HokuyoDriver::BreakPolyLine()
+{
+  int rho = 0;
+  float theta = 0.0;
+  int X[1200] = {0};
+  int Y[1200] = {0};
+  int rhoCopy[1200] = {0};
+  float thetaCopy[1200] = {0};
+  int pointCnt = 0;
+  int lineCnt = 0;
+  int N = 0;
+  SepLaserRho.clear();
+  SepLaserTheta.clear();
+
+  for (int i = 0; i < BreakedLaserRho.size(); ++i) {
+
+    rho = BreakedLaserRho.at(i);
+    theta = BreakedLaserTheta.at(i);
+
+    if (rho < 0) {
+      if (pointCnt > 200) {
+        N = PolyContourFit(X, Y, pointCnt, 1000);
+
+        if (N == 0) {
+          lineCnt ++;
+
+          for (int j = 0; j < pointCnt; ++j) {
+            SepLaserRho.push_back(rhoCopy[j]);
+            SepLaserTheta.push_back(thetaCopy[j]);
+          }
+          SepLaserRho.push_back(-1);
+          SepLaserTheta.push_back(-1);
+        }
+        else if (N > 0) {
+          lineCnt +=2;
+
+          for (int j = 0 ; j < N; ++j) {
+            SepLaserRho.push_back(rhoCopy[j]);
+            SepLaserTheta.push_back(thetaCopy[j]);
+          }
+          SepLaserRho.push_back(-1);
+          SepLaserTheta.push_back(1000.0);
+
+          for (int j = N; j < pointCnt; ++j) {
+            SepLaserRho.push_back(rhoCopy[j]);
+            SepLaserTheta.push_back(thetaCopy[j]);
+          }
+          SepLaserRho.push_back(-1);
+          SepLaserTheta.push_back(1000.0);
+        }
+      }
+      pointCnt = 0;
+      continue;
+    }
+    X[pointCnt] = rho*cos(theta);
+    Y[pointCnt] = rho*sin(theta);
+    rhoCopy[pointCnt] = rho;
+    thetaCopy[pointCnt] = theta;
+    pointCnt ++;
+  }
+  return lineCnt;
+}
+
+void
+HokuyoDriver::FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta)
+{
+  int rho = 0;
+  float theta = 0.0;
+  int X[1200] = {0};
+  int Y[1200] = {0};
+  int pointCnt = 0;
+  LinePara tmpLinePara;
+  FittedLine.clear();
+  for (int i = 0; i < LaserRho.size(); ++i) {
+    rho = LaserRho.at(i);
+    theta = LaserTheta.at(i);
+
+    if (rho < 0) {
+      WeightedFit(X, Y, pointCnt, &tmpLinePara);
+      FittedLine.push_back(tmpLinePara);
+      pointCnt = 0;
+      continue;
+    }
+
+    X[pointCnt] = rho*cos(theta);
+    Y[pointCnt] = rho*sin(theta);
+    pointCnt ++;
+  }
+  for (int i = 0; i < FittedLine.size(); ++i) {
+
+    cout<<"a: "<<FittedLine.at(i).a<<"  b: "<<FittedLine.at(i).b<<" ";
+    cout<<"x1: "<<FittedLine.at(i).startPoint.x<<" "
+        <<"y1: "<<FittedLine.at(i).startPoint.y<<" "
+        <<"x1: "<<FittedLine.at(i).endPoint.x<<" "
+        <<"y1: "<<FittedLine.at(i).endPoint.y<<endl;
+  }
+}
+
+void
+HokuyoDriver::DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage)
+{
+  int dx = LaserImage->cols/2;
+  int dy = LaserImage->rows/2;
+  circle(*LaserImage, Point(dx,dy), 5, CV_RGB(0, 0, 255));
+  float x1,y1,x2,y2;
+
+  int colorIndex = 0,colorRGB;
+  int R = 255, G = 0, B = 0;
+  for (int i = 0; i < FittedLine.size(); ++i) {
+    colorRGB = usualColor[colorIndex];
+    R = colorRGB/65536;
+    G = (colorRGB%65536)/256;
+    B = colorRGB%256;
+    colorIndex = (colorIndex + 1)%10;
+
+    x1 = FittedLine.at(i).startPoint.x;
+    y1 = FittedLine.at(i).startPoint.y;
+
+    x2 = FittedLine.at(i).endPoint.x;
+    y2 = FittedLine.at(i).endPoint.y;
+
+    x1 = x1 * 50 + dx;
+    y1 = -y1 * 50 + dy;
+
+    x2 = x2 * 50 + dx;
+    y2 = -y2 * 50 + dy;
+
+    cout<<"x1: "<<x1<<" y1: "<<y1<<" x2: "<<x2<<" y2: "<<y2<<endl;
+    line(*LaserImage,Point(x2,y2),Point(x1,y1),CV_RGB(R,G,B),2,8,0);
+  }
+}
+
+void
+HokuyoDriver::LaserDataCovert()
+{
+  float theta = config_.min_ang;
+  float deltaTeta = 0.25 * M_PI/180.0;
+
+  LaserRho.clear();
+  LaserTheta.clear();
+
+  //  cout << "\t" << RED << "show information " << RESET << endl;
+
+  for (int i = 0; i < scan_.ranges.size(); ++i) {
+    LaserRho.push_back(scan_.ranges[i]);
+    LaserTheta.push_back(theta);
+    theta += deltaTeta;
+    //    cout << i << "  :  " << LaserTheta[i] << "------->   " << LaserRho[i] << endl;
+
+  }
+
 }

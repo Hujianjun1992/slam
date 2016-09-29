@@ -54,10 +54,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ics/slam/slam_by_myself
+CMAKE_SOURCE_DIR = /home/ics/git/slam/slam_by_myself
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ics/slam/slam_by_myself/build
+CMAKE_BINARY_DIR = /home/ics/git/slam/slam_by_myself/build
 
 #=============================================================================
 # Directory level rules for directory src
@@ -66,6 +66,7 @@ CMAKE_BINARY_DIR = /home/ics/slam/slam_by_myself/build
 src/all: src/CMakeFiles/laser_data_show.dir/all
 src/all: src/CMakeFiles/hokuyo_driver.dir/all
 src/all: src/CMakeFiles/hokuyo.dir/all
+src/all: src/CMakeFiles/WeightedFit.dir/all
 
 .PHONY : src/all
 
@@ -73,6 +74,7 @@ src/all: src/CMakeFiles/hokuyo.dir/all
 src/clean: src/CMakeFiles/laser_data_show.dir/clean
 src/clean: src/CMakeFiles/hokuyo_driver.dir/clean
 src/clean: src/CMakeFiles/hokuyo.dir/clean
+src/clean: src/CMakeFiles/WeightedFit.dir/clean
 
 .PHONY : src/clean
 
@@ -87,9 +89,10 @@ src/preinstall:
 # All Build rule for target.
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo_driver.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/WeightedFit.dir/all
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/depend
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/slam/slam_by_myself/build/CMakeFiles --progress-num=5,6 "Built target laser_data_show"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=7,8 "Built target laser_data_show"
 .PHONY : src/CMakeFiles/laser_data_show.dir/all
 
 # Include target in all.
@@ -99,9 +102,9 @@ all: src/CMakeFiles/laser_data_show.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/laser_data_show.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 8
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/laser_data_show.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/laser_data_show.dir/rule
 
 # Convenience name for target.
@@ -124,9 +127,10 @@ clean: src/CMakeFiles/laser_data_show.dir/clean
 
 # All Build rule for target.
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/hokuyo.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/WeightedFit.dir/all
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/depend
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/slam/slam_by_myself/build/CMakeFiles --progress-num=3,4 "Built target hokuyo_driver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=5,6 "Built target hokuyo_driver"
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/all
 
 # Include target in all.
@@ -136,9 +140,9 @@ all: src/CMakeFiles/hokuyo_driver.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/hokuyo_driver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo_driver.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/rule
 
 # Convenience name for target.
@@ -163,7 +167,7 @@ clean: src/CMakeFiles/hokuyo_driver.dir/clean
 src/CMakeFiles/hokuyo.dir/all:
 	$(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/depend
 	$(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/slam/slam_by_myself/build/CMakeFiles --progress-num=1,2 "Built target hokuyo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=3,4 "Built target hokuyo"
 .PHONY : src/CMakeFiles/hokuyo.dir/all
 
 # Include target in all.
@@ -173,9 +177,9 @@ all: src/CMakeFiles/hokuyo.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/hokuyo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/hokuyo.dir/rule
 
 # Convenience name for target.
@@ -190,6 +194,43 @@ src/CMakeFiles/hokuyo.dir/clean:
 
 # clean rule for target.
 clean: src/CMakeFiles/hokuyo.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target src/CMakeFiles/WeightedFit.dir
+
+# All Build rule for target.
+src/CMakeFiles/WeightedFit.dir/all:
+	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/depend
+	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=1,2 "Built target WeightedFit"
+.PHONY : src/CMakeFiles/WeightedFit.dir/all
+
+# Include target in all.
+all: src/CMakeFiles/WeightedFit.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/WeightedFit.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/WeightedFit.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+.PHONY : src/CMakeFiles/WeightedFit.dir/rule
+
+# Convenience name for target.
+WeightedFit: src/CMakeFiles/WeightedFit.dir/rule
+
+.PHONY : WeightedFit
+
+# clean rule for target.
+src/CMakeFiles/WeightedFit.dir/clean:
+	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/clean
+.PHONY : src/CMakeFiles/WeightedFit.dir/clean
+
+# clean rule for target.
+clean: src/CMakeFiles/WeightedFit.dir/clean
 
 .PHONY : clean
 

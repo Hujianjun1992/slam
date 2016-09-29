@@ -79,7 +79,7 @@ hokuyo::Laser::Laser() :
                       dmin_(0), dmax_(0), ares_(0), amin_(0), amax_(0), afrt_(0), rate_(0),
                       wrapped_(0), last_time_(0), time_repeat_count_(0), offset_(0),
                       laser_fd_(-1)
-{ 
+{
 #ifdef USE_LOG_FILE
   if (!logfile)
     logfile = fopen("hokuyo.log", "w");
@@ -101,7 +101,7 @@ hokuyo::Laser::open(const char * port_name)
 {
   if (portOpen())
     close();
-  
+
   // Make IO non blocking. This way there are no race conditions that
   // cause blocking when a badly behaving process does a read at the same
   // time as us. Will need to switch to blocking for writes or errors

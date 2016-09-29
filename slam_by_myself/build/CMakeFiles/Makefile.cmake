@@ -131,4 +131,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/CMakeFiles/laser_data_show.dir/DependInfo.cmake"
   "src/CMakeFiles/hokuyo_driver.dir/DependInfo.cmake"
   "src/CMakeFiles/hokuyo.dir/DependInfo.cmake"
+  "src/CMakeFiles/WeightedFit.dir/DependInfo.cmake"
   )

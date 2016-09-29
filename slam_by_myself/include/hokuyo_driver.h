@@ -1,18 +1,24 @@
 # pragma once
 
 #include <iostream>
+#include <vector>
 #include <boost/function.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include "hokuyo.h"
+#include "WeightedFit.h"
+#include "myself.h"
 
 using namespace std;
 using namespace cv;
 
 extern boost::mutex io_mutex;
 extern Mat image;
+
+static int usualColor[15] = {16777215,255,128,65280,32768,
+                             16711680,16711935,8421376,65535,32896 };
 
 struct HokuyoConfig
 {
@@ -53,11 +59,12 @@ class HokuyoDriver
   std::string getID();
   void config_update(HokuyoConfig &new_config);
   void scanThread();
-  void getLaserData(const hokuyo::LaserScan &scan);
-  void DrawLaserData(const hokuyo::LaserScan &scan);
+  void getLaserData();
+  void DrawLaserData();
+  void LaserDataCovert();
 
  private:
-  typedef boost::function<void(const hokuyo::LaserScan &)> UseScanFunction;
+  typedef boost::function<void()> UseScanFunction;
   UseScanFunction useScan_;
 
   boost::shared_ptr<boost::thread> scan_thread_;
@@ -84,8 +91,30 @@ class HokuyoDriver
   int lost_scan_thread_count_;
   int corrupted_scan_count_;
 
+  vector<float> LaserRho;
+  vector<float> BreakedLaserRho;
+
+  vector<float>LaserTheta;
+  vector<float>BreakedLaserTheta;
+
+  vector<float>SepLaserRho;
+  vector<float>SepLaserTheta;  
+
+  vector<int>LaserX;
+  vector<int>LaserY;
+
+  vector<int>BreakIndex;
+  //  vector<LinePara>FittedLine;
+
   State state_;
 
   HokuyoConfig config_;
+
+  void CreateLaserImage(Mat* LaserImage);
+  int BreakLadarRho();
+  int PolyContourFit(int* X, int* Y, int n, float Eps);
+  int BreakPolyLine();
+  void FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta);
+  void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
 
 };

@@ -43,7 +43,7 @@ namespace hokuyo
 
   //! The maximum number of bytes that should be skipped when looking for a response
   const int MAX_SKIPPED = 1000000;
-  
+
   //! Macro for defining an exception with a given parent (std::runtime_error should be top parent)
 #define DEF_EXCEPTION(name, parent) \
   class name  : public parent { \

@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ics/slam/slam_by_myself
+CMAKE_SOURCE_DIR = /home/ics/git/slam/slam_by_myself
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ics/slam/slam_by_myself/build
+CMAKE_BINARY_DIR = /home/ics/git/slam/slam_by_myself/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles /home/ics/slam/slam_by_myself/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles /home/ics/git/slam/slam_by_myself/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -149,6 +149,19 @@ hokuyo/fast:
 	$(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/build
 .PHONY : hokuyo/fast
 
+#=============================================================================
+# Target rules for targets named WeightedFit
+
+# Build rule for target.
+WeightedFit: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 WeightedFit
+.PHONY : WeightedFit
+
+# fast build rule for target.
+WeightedFit/fast:
+	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
+.PHONY : WeightedFit/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -160,6 +173,7 @@ help:
 	@echo "... laser_data_show"
 	@echo "... hokuyo_driver"
 	@echo "... hokuyo"
+	@echo "... WeightedFit"
 .PHONY : help
 
 
