@@ -5,13 +5,13 @@
 
 CV_IMPLEMENT_QSORT( IntQSort, int, cmp_pts )  // 该宏利用声明并定义函数IntQSort用于快速排序
 int W[MAX_FITPOINTS_CNT];// =(int * )malloc(sizeof(int) * Cnt);// 权值系数	
-int WeightedFit(int X[] , int Y[] , int Cnt , LinePara * EstLinePara)
+int WeightedFit(float X[] , float Y[] , int Cnt , LinePara * EstLinePara)
 {
     // 加权最小二乘法
     // Cnt: 数据点计数
     // EstLinePara : 直线拟合的估计值，可以利用最小二乘法计算得到
     // 利用最小二乘进行估计
-    int * Tmp;
+    float * Tmp;
     int FlagFlip = 0;// 是否对X,Y进行翻转过
     //FitPara(X , Y , Cnt , EstLinePara , NULL);
     //if(abs(EstLinePara->a) > 1 || EstLinePara->a == NAN || EstLinePara->a == -NAN)
@@ -120,7 +120,7 @@ int Med(int R[] , int Cnt)// 求取中值
     IntQSort(R , Cnt , 0);
     return R[Cnt/2];
 }
-int CalW(int X[] , int Y[] , int Cnt , LinePara * EstLinePara , int W[] )
+int CalW(float X[] , float Y[] , int Cnt , LinePara * EstLinePara , int W[] )
 {
     int i = 0;
     double a = (double)EstLinePara->a;
@@ -131,7 +131,7 @@ int CalW(int X[] , int Y[] , int Cnt , LinePara * EstLinePara , int W[] )
     double tmp;
     for(i = 0; i < Cnt ; i++)
     {
-        tmp = (int)abs(Y[i] - a * X[i] - b );
+        tmp = (float)abs(Y[i] - a * X[i] - b );
         W[i]=tmp;
 
     }
@@ -154,15 +154,15 @@ int CalW(int X[] , int Y[] , int Cnt , LinePara * EstLinePara , int W[] )
 
     return 0;
 }
-int FitPara(int X[] , int Y[] , int Cnt ,LinePara * EstLinePara , int W[])
+int FitPara(float X[] , float Y[] , int Cnt ,LinePara * EstLinePara , int W[])
 {
 
     int i = 0;
-    long long P1 = 0; // sum(wi*xi*yi);
-    long long P2 = 0; // sum(wi * xi * xi)
-    long long P3 = 0; // sum(wi * xi)
-    long long P4 = 0; // sum(wi * yi)
-    long long P5 = 0; // sum(wi)
+    double P1 = 0; // sum(wi*xi*yi);
+    double P2 = 0; // sum(wi * xi * xi)
+    double P3 = 0; // sum(wi * xi)
+    double P4 = 0; // sum(wi * yi)
+    double P5 = 0; // sum(wi)
     if(W == NULL) // 直接进行最小二乘拟合，即所有数据的权值相等
     {
         //
@@ -172,7 +172,7 @@ int FitPara(int X[] , int Y[] , int Cnt ,LinePara * EstLinePara , int W[])
             P2 +=   X[i] * X[i];
             P3 +=  X[i];
             P4 +=   Y[i];
-            P5 += 1;
+            P5 += 1.0;
         }
     }
     else{ //加权最小二乘拟合

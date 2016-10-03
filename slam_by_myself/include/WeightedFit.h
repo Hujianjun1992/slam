@@ -1,4 +1,3 @@
-
 #ifndef WEIGHTED_FIT_H
 #define WEIGHTED_FIT_H
 #include <cmath>
@@ -24,8 +23,8 @@ typedef struct{
 
 
 int Med(int R[] , int Cnt);// 求取中值
-int CalW(int X[] , int Y[] , int Cnt , LinePara * EstLinePara , int W[]);
-int FitPara(int X[] , int Y[] , int Cnt ,LinePara * EstLinePara , int W[]);
-int WeightedFit(int X[] , int Y[] , int Cnt , LinePara * EstLinePara);
+int CalW(float X[] , float Y[] , int Cnt , LinePara * EstLinePara , int W[]);
+int FitPara(float X[] , float Y[] , int Cnt ,LinePara * EstLinePara , int W[]);
+int WeightedFit(float X[] , float Y[] , int Cnt , LinePara * EstLinePara);
 #define cmp_pts( x, y )   ( x < y )    //  用于快速排序比较x < y , 得到的结果问哦升序排列
 #endif

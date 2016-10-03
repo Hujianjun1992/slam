@@ -11,11 +11,15 @@
 #include "WeightedFit.h"
 #include "myself.h"
 
+#define IMAGE_WIDTH 1500
+#define IMAGE_HEIGHT 1500
 using namespace std;
 using namespace cv;
 
 extern boost::mutex io_mutex;
-extern Mat image;
+extern Mat image_orgi;
+extern Mat image_line;
+extern Mat image_test;
 
 static int usualColor[15] = {16777215,255,128,65280,32768,
                              16711680,16711935,8421376,65535,32896 };
@@ -104,17 +108,22 @@ class HokuyoDriver
   vector<int>LaserY;
 
   vector<int>BreakIndex;
-  //  vector<LinePara>FittedLine;
+  vector<LinePara>FittedLine;
 
   State state_;
 
   HokuyoConfig config_;
 
-  void CreateLaserImage(Mat* LaserImage);
+  void CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<float>& LaserTheta);
   int BreakLadarRho();
-  int PolyContourFit(int* X, int* Y, int n, float Eps);
+  int PolyContourFit(float* X, float* Y, int n, float Eps);
   int BreakPolyLine();
   void FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta);
   void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
+  void MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta);
 
+  vector<float> x_start;
+  vector<float> x_end;
+  vector<float> y_start;
+  vector<float> y_end;
 };
