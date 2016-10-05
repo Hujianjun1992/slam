@@ -21,10 +21,11 @@ include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 #target_link_libraries(Urg_driver Tcpip Serial)
 #add_library(hokuyo_wrapper hokuyo_wrapper.cpp)
 #target_link_libraries(hokuyo_wrapper Urg_driver connect_utils Connection_information)
+add_library(clusering clusering.cpp)
 add_library(WeightedFit WeightedFit.cpp)
 add_library(hokuyo hokuyo.cpp)
 add_library(hokuyo_driver hokuyo_driver.cpp)
-target_link_libraries(hokuyo_driver hokuyo WeightedFit ${Boost_LIBRARIES} ${OpenCV_LIBS})
+target_link_libraries(hokuyo_driver hokuyo WeightedFit  clusering ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 
 

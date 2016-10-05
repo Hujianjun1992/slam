@@ -170,6 +170,21 @@ WeightedFit/fast:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
 .PHONY : WeightedFit/fast
 
+# Convenience name for target.
+src/CMakeFiles/clusering.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clusering.dir/rule
+.PHONY : src/CMakeFiles/clusering.dir/rule
+
+# Convenience name for target.
+clusering: src/CMakeFiles/clusering.dir/rule
+
+.PHONY : clusering
+
+# fast build rule for target.
+clusering/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
+.PHONY : clusering/fast
+
 WeightedFit.o: WeightedFit.cpp.o
 
 .PHONY : WeightedFit.o
@@ -196,6 +211,33 @@ WeightedFit.s: WeightedFit.cpp.s
 WeightedFit.cpp.s:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/WeightedFit.cpp.s
 .PHONY : WeightedFit.cpp.s
+
+clusering.o: clusering.cpp.o
+
+.PHONY : clusering.o
+
+# target to build an object file
+clusering.cpp.o:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/clusering.cpp.o
+.PHONY : clusering.cpp.o
+
+clusering.i: clusering.cpp.i
+
+.PHONY : clusering.i
+
+# target to preprocess a source file
+clusering.cpp.i:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/clusering.cpp.i
+.PHONY : clusering.cpp.i
+
+clusering.s: clusering.cpp.s
+
+.PHONY : clusering.s
+
+# target to generate assembly for a file
+clusering.cpp.s:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/clusering.cpp.s
+.PHONY : clusering.cpp.s
 
 hokuyo.o: hokuyo.cpp.o
 
@@ -290,9 +332,13 @@ help:
 	@echo "... hokuyo_driver"
 	@echo "... hokuyo"
 	@echo "... WeightedFit"
+	@echo "... clusering"
 	@echo "... WeightedFit.o"
 	@echo "... WeightedFit.i"
 	@echo "... WeightedFit.s"
+	@echo "... clusering.o"
+	@echo "... clusering.i"
+	@echo "... clusering.s"
 	@echo "... hokuyo.o"
 	@echo "... hokuyo.i"
 	@echo "... hokuyo.s"

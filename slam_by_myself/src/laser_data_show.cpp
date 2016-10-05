@@ -10,8 +10,8 @@ Mat image_test(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(0, 255, 0));
 int main(int argc, char *argv[])
 {
   HokuyoConfig config;
-  config.min_ang = -2.35;
-  config.max_ang = 2.35;
+  config.min_ang = -1.57;
+  config.max_ang = 1.57;
   config.intensity = false;
   config.cluster = 1;
   config.skip = 0;

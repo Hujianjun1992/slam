@@ -16,6 +16,18 @@ cstdlib
 QSort.h
 ../include/QSort.h
 
+../include/clusering.h
+iostream
+-
+cmath
+-
+vector
+-
+stdlib.h
+-
+ctime
+-
+
 ../include/hokuyo.h
 stdexcept
 -
@@ -33,6 +45,8 @@ limits
 ../include/hokuyo_driver.h
 iostream
 -
+cmath
+-
 vector
 -
 boost/function.hpp
@@ -45,10 +59,14 @@ opencv2/core/core.hpp
 -
 opencv2/highgui/highgui.hpp
 -
+opencv2/imgproc/imgproc.hpp
+-
 hokuyo.h
 ../include/hokuyo.h
 WeightedFit.h
 ../include/WeightedFit.h
+clusering.h
+../include/clusering.h
 myself.h
 ../include/myself.h
 

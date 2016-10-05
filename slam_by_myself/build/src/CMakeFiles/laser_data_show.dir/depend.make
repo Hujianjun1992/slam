@@ -3,6 +3,7 @@
 
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/QSort.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/WeightedFit.h
+src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/clusering.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/hokuyo.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/hokuyo_driver.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/myself.h

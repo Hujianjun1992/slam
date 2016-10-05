@@ -19,6 +19,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/ics/git/slam/slam_by_myself/build/src/CMakeFiles/hokuyo.dir/DependInfo.cmake"
   "/home/ics/git/slam/slam_by_myself/build/src/CMakeFiles/WeightedFit.dir/DependInfo.cmake"
+  "/home/ics/git/slam/slam_by_myself/build/src/CMakeFiles/clusering.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

@@ -162,6 +162,19 @@ WeightedFit/fast:
 	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
 .PHONY : WeightedFit/fast
 
+#=============================================================================
+# Target rules for targets named clusering
+
+# Build rule for target.
+clusering: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clusering
+.PHONY : clusering
+
+# fast build rule for target.
+clusering/fast:
+	$(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
+.PHONY : clusering/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -174,6 +187,7 @@ help:
 	@echo "... hokuyo_driver"
 	@echo "... hokuyo"
 	@echo "... WeightedFit"
+	@echo "... clusering"
 .PHONY : help
 
 

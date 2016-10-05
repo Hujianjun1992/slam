@@ -4,6 +4,8 @@
 
 #include "myself.h"
 
+#define DEBUG
+//#define USING_CLUSER
 //using namespace std;
 
 HokuyoDriver::HokuyoDriver(HokuyoConfig& config):config_(config)
@@ -255,32 +257,42 @@ HokuyoDriver::scanThread()
 void
 HokuyoDriver::getLaserData()
 {
-   for (int i = 0; i < scan_.ranges.size(); ++i) {
-     cout << "scan.ranged[i] :" << scan_.ranges[i] << endl;
+  for (int i = 0; i < scan_.ranges.size(); ++i) {
+    cout << "scan.ranged[i] :" << scan_.ranges[i] << endl;
   }
-   cout << "hujianjun" << endl;
+  cout << "hujianjun" << endl;
 }
 
 void
 HokuyoDriver::DrawLaserData()
 {
 
-  LaserDataCovert();
-  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
-
-  cout << YELLOW"lineCnt :" << RESET << BreakPolyLine() << endl;
-
   Mat image_tmp_orgi(800, 800, CV_8UC3, Scalar(20, 20, 20));
   Mat image_tmp_line(800, 800, CV_8UC3, Scalar(20, 20, 20));
   Mat image_tmp_test(800, 800, CV_8UC3, Scalar(20, 20, 20));
 
-  CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
+  LaserDataCovert();
+  MedFilter(LaserRho, LaserTheta);
 
-   FitLine(FittedLine, SepLaserRho, SepLaserTheta);
-   DrawLaserLine(FittedLine, &image_tmp_line);
+  //  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
+
+  //  CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
+
+
+  CreateLaserImage(&image_tmp_orgi, LaserRho, LaserTheta);
+
+  //  cout << YELLOW"lineCnt :" << RESET << BreakPolyLine() << endl;
+
+
+
+  image_tmp_line = HoughLines(&image_tmp_orgi);
+
+  //  FitLine(FittedLine, SepLaserRho, SepLaserTheta);
+  //  DrawLaserLine(FittedLine, &image_tmp_line);
 
   io_mutex.lock();
   image_tmp_orgi.copyTo(image_orgi);
+  image_tmp_test.copyTo(image_test);
   image_tmp_line.copyTo(image_line);
   io_mutex.unlock();
 
@@ -393,6 +405,7 @@ HokuyoDriver::BreakLadarRho()
       }
     lastRho = rho;
   }
+
   BreakedLaserRho.push_back(-1);
   BreakedLaserTheta.push_back(1000.0);
   return breakCnt;
@@ -412,6 +425,7 @@ int HokuyoDriver::PolyContourFit(float* X, float* Y, int n, float Eps)
   for (i = 1; i < n - 1; i++) {
     dbDis = abs( ( Y[i] - Y[0] ) * cosTheta + ( X[i] - X[0] ) * sinTheta );
     if (dbDis > MaxDis) {
+      //      cout << "dbDis --------->" << dbDis << endl;
       MaxDis = dbDis;
       MaxDisInd = i;
     }
@@ -427,6 +441,9 @@ int HokuyoDriver::PolyContourFit(float* X, float* Y, int n, float Eps)
 int
 HokuyoDriver::BreakPolyLine()
 {
+  //  int data_num = scan_.ranges.size();
+  //  cout << "data_num" << data_num << endl;
+  //  cout << "scan_.ranges" << scan_.ranges.size() << endl;
   int rho = 0;
   float theta = 0.0;
   float X[1200] = {0};
@@ -576,7 +593,7 @@ HokuyoDriver::DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage)
   }
   //  for (int i = 0 ,i < x_start.size(), ++i)
   //    {
-        //    }
+  //    }
 }
 
 void
@@ -591,7 +608,8 @@ HokuyoDriver::LaserDataCovert()
   //  cout << "\t" << RED << "show information " << RESET << endl;
 
   for (int i = 0; i < scan_.ranges.size(); ++i) {
-    if(scan_.ranges[i] > 30) scan_.ranges[i] = 30;
+    if(scan_.ranges[i] > MAX_DISTANCE) scan_.ranges[i] = MAX_DISTANCE;
+    if(scan_.ranges[i] < MIN_DISTANCE) scan_.ranges[i] = MIN_DISTANCE;
     LaserRho.push_back(scan_.ranges[i]);
     LaserTheta.push_back(theta);
     theta += deltaTeta;
@@ -604,19 +622,30 @@ HokuyoDriver::LaserDataCovert()
 void
 HokuyoDriver::MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta)
 {
+  //std::cout << 1 <<std::endl;
   vector<float> rho;
   vector<float> theta;
+
+  //    rho.clear();
+  //    theta.clear();
+
+  //std::cout << 2 <<std::endl;
   int halfWindowSize = 2;
-  int *neighbor = new int[2 * halfWindowSize + 1];
-  int temp;
+  float *neighbor = new float[2 * halfWindowSize + 1];
+  float temp;
+
+  //std::cout << 3 <<std::endl;
 
   for (int i = halfWindowSize; i < (int)LaserRho.size() - halfWindowSize; ++i) {
     for (int j = -halfWindowSize; j < halfWindowSize; j++) {
       neighbor[j + halfWindowSize] = LaserRho.at(i + j);
     }
+
+    //std::cout << 4 <<std::endl;
     for (int m = 0; m < 2 * halfWindowSize + 1; ++m)
       {
-        for (int n = m + 1; m < 2 * halfWindowSize + 1; ++n) {
+        //std::cout << m <<std::endl;
+        for (int n = m + 1; n < 2 * halfWindowSize + 1; ++n) {
           if (neighbor[m] > neighbor[n]) {
             temp = neighbor[m];
             neighbor[m] = neighbor[n];
@@ -624,9 +653,12 @@ HokuyoDriver::MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta)
           }
         }
       }
+
+
     rho.push_back(neighbor[halfWindowSize]);
     theta.push_back(LaserTheta.at(i));
   }
+
 
   LaserRho.clear();
   LaserTheta.clear();
@@ -636,4 +668,98 @@ HokuyoDriver::MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta)
     LaserTheta.push_back(theta.at(i));
   }
 
+}
+
+Mat
+HokuyoDriver::HoughLines(Mat* srcImage)
+{
+
+  int iter_num = 10;
+  Mat midImage,dstImage;
+
+  Canny(*srcImage, midImage, 3, 9, 3);
+  cvtColor(midImage, dstImage, CV_GRAY2BGR);
+
+  vector<Vec4i> lines;
+  HoughLinesP(midImage, lines, 1, CV_PI/180, 50, 50, 20);
+
+  cout << GREEN"line num : " << lines.size() << RESET << endl;
+
+  vector<Rectangle> rect(lines.size());
+
+  for (int i = 0; i < lines.size(); ++i) {
+    Vec4i l = lines[i];
+    //        double dis = pow( (l[3] - l[1]), 2) + pow( (l[2] - l[0]), 2);
+        //        double length = pow(dis, 0.5);
+        //        double width = length * 0.3;
+
+    //    rectangle[i].width = rectangle[i].proportion * length;
+
+        //p[0] = l[0]
+    rectangle(dstImage, Point(l[0],l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 1, 8);
+
+    //   line ( dstImage, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(0, 0, 255), 1, CV_AA);
+  }
+
+#ifdef USING_CLUSER
+
+
+  vector<vector<double> > linespara(lines.size());
+
+  for (int i = 0; i < lines.size(); ++i){
+    Vec4i l = lines[i];
+    linespara[i].push_back((double)l[0]);
+    linespara[i].push_back((double)l[1]);
+    linespara[i].push_back((double)l[2]);
+    linespara[i].push_back((double)l[3]);
+  }
+  vector<Cluster> cluster_line = k_means(linespara, 3, 100);
+
+  for (uint i = 0; i < cluster_line.size(); ++i) {
+    Vec4i p;
+    for (uint j = 0; j < cluster_line[i].centroid.size(); ++j) {
+      p[j] = cluster_line[i].centroid[j];
+    }
+    line ( dstImage, Point(p[0],p[1]), Point(p[2],p[3]),Scalar(0, 0, 255), 1, CV_AA);
+  }
+
+
+  vector<vector<Cluster> > clusters_out;
+  for (int i = 0; i < iter_num; i++) {
+      vector<Cluster> clusters = k_means(linespara, 4, 100);
+      clusters_out.push_back(clusters);
+  }
+
+  for (uint i = 0; i < clusters_out.size(); ++i) {
+
+    cout << "iteration : " << i << endl;
+    vector<Cluster> cluster_tmp = clusters_out[i];
+
+    for (uint j = 0; j < cluster_tmp.size(); ++j) {
+      cout << "Cluster " << j << " :" << endl;
+
+      cout << "\t" << "Centroid: " << "\n\t\t[ ";
+      for (uint m = 0 ; m < cluster_tmp[j].centroid.size(); ++m) {
+        cout << cluster_tmp[j].centroid[m] << " ";
+      }
+      cout << "]" << endl;
+
+      cout << "\t" << "Samples:\n";
+      for (uint n = 0; n < cluster_tmp[j].samples.size(); ++n) {
+        uint c = cluster_tmp[j].samples[n];
+        cout << "\t\t[ ";
+        for (uint q = 0; q < linespara[0].size(); ++q) {
+          cout << linespara[c][q] << " ";
+        }
+        cout << "]\n";
+      }
+    }
+  }
+
+#endif
+
+
+
+
+  return dstImage;
 }

@@ -4,6 +4,7 @@
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o
  ../include/QSort.h
  ../include/WeightedFit.h
+ ../include/clusering.h
  ../include/hokuyo.h
  ../include/hokuyo_driver.h
  ../include/myself.h

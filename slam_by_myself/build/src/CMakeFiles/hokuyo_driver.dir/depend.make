@@ -3,6 +3,7 @@
 
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/QSort.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/WeightedFit.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/clusering.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/hokuyo.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/hokuyo_driver.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/myself.h
@@ -15,4 +16,6 @@ src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/core/version.hpp
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/highgui/highgui.hpp
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/highgui/highgui_c.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/imgproc/imgproc.hpp
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/imgproc/types_c.h
 

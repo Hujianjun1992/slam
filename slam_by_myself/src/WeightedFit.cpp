@@ -188,5 +188,5 @@ int FitPara(float X[] , float Y[] , int Cnt ,LinePara * EstLinePara , int W[])
 
     EstLinePara->a = ( ((double)( ((double)P1) * ((double)P5) - P4 * P3)) / ( (double)(((double)P2) * ((double)P5) - P3*P3) ) );
     EstLinePara->b = (P1 - P2 * EstLinePara->a)/P3;
-    return 0; 
+    return 0;
 }

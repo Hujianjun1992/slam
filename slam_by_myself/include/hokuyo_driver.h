@@ -1,16 +1,21 @@
 # pragma once
 
 #include <iostream>
+#include <cmath>
 #include <vector>
 #include <boost/function.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include "hokuyo.h"
 #include "WeightedFit.h"
+#include "clusering.h"
 #include "myself.h"
 
+#define MAX_DISTANCE 50
+#define MIN_DISTANCE 0.5f
 #define IMAGE_WIDTH 1500
 #define IMAGE_HEIGHT 1500
 using namespace std;
@@ -23,6 +28,37 @@ extern Mat image_test;
 
 static int usualColor[15] = {16777215,255,128,65280,32768,
                              16711680,16711935,8421376,65535,32896 };
+
+/* typedef struct */
+/* { */
+/*   float x; */
+/*   float y; */
+/* }iPoint; */
+
+/* typedef struct{ */
+/*   double proportion; */
+/*   double length; */
+/*   double width; */
+/*   iPoint Point1; */
+/*   iPoint Point2; */
+/*   iPoint Point3; */
+/*   iPoint Point4; */
+/* public: */
+/*   Rectangle(double proportion_ = 0.2){proportion = proportion_;} */
+/* }Rectangle; */
+
+class Rectangle
+{
+ public:
+  double proportion;
+  double length;
+  double width;
+  vector<iPoint> Point;
+ Rectangle(double proportion_ = 0.2):Point(4)
+    {
+    proportion = proportion_;
+  }
+};
 
 struct HokuyoConfig
 {
@@ -121,6 +157,7 @@ class HokuyoDriver
   void FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta);
   void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
   void MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta);
+  Mat HoughLines(Mat* srcImage);
 
   vector<float> x_start;
   vector<float> x_end;

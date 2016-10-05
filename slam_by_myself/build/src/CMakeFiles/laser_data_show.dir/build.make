@@ -117,6 +117,7 @@ laser_data_show_EXTERNAL_OBJECTS =
 ../bin/laser_data_show: /usr/local/lib/libopencv_core.so.2.4.13
 ../bin/laser_data_show: ../lib/libhokuyo.a
 ../bin/laser_data_show: ../lib/libWeightedFit.a
+../bin/laser_data_show: ../lib/libclusering.a
 ../bin/laser_data_show: src/CMakeFiles/laser_data_show.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/laser_data_show"
 	cd /home/ics/git/slam/slam_by_myself/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/laser_data_show.dir/link.txt --verbose=$(VERBOSE)
