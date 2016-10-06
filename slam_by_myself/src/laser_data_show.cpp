@@ -29,8 +29,8 @@ int main(int argc, char *argv[])
   while(1)
     {
       io_mutex.lock();
-      imshow("laser data show", image_orgi);
-      imshow("laser line show", image_line);
+//      imshow("laser data show", image_orgi);
+//      imshow("laser line show", image_line);
       //      imshow("laser test show", image_test);
       io_mutex.unlock();
       if((char)cv::waitKey(33) == 'q')

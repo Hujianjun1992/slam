@@ -1,0 +1,15 @@
+# 这是一个参数文件
+# 去你妹的yaml! 我再也不用yaml了！简简单单多好！
+
+# LineExtractionHokuyo 里定义的参数
+
+bearing_std_dev=1e-5
+range_std_dev=0.012
+least_sq_angle_thresh=0.0001
+least_sq_radius_thresh=0.0001
+max_line_gap=0.5
+min_line_length=0.7
+min_range=0.5
+min_split_dist=0.04
+outlier_dist=0.06
+min_line_points=10

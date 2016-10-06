@@ -13,6 +13,8 @@
 #include "WeightedFit.h"
 #include "clusering.h"
 #include "myself.h"
+#include "line_extraction_hokuyo.h"
+#include "line.h"
 
 #define MAX_DISTANCE 50
 #define MIN_DISTANCE 0.5f
@@ -47,18 +49,18 @@ static int usualColor[15] = {16777215,255,128,65280,32768,
 /*   Rectangle(double proportion_ = 0.2){proportion = proportion_;} */
 /* }Rectangle; */
 
-class Rectangle
-{
- public:
-  double proportion;
-  double length;
-  double width;
-  vector<iPoint> Point;
- Rectangle(double proportion_ = 0.2):Point(4)
-    {
-    proportion = proportion_;
-  }
-};
+/* class Rectangle */
+/* { */
+/*  public: */
+/*   double proportion; */
+/*   double length; */
+/*   double width; */
+/*   vector<iPoint> Point; */
+/*  Rectangle(double proportion_ = 0.2):Point(4) */
+/*     { */
+/*     proportion = proportion_; */
+/*   } */
+/* }; */
 
 struct HokuyoConfig
 {
@@ -138,14 +140,17 @@ class HokuyoDriver
   vector<float>BreakedLaserTheta;
 
   vector<float>SepLaserRho;
-  vector<float>SepLaserTheta;  
+  vector<float>SepLaserTheta;
 
+  
   vector<int>LaserX;
   vector<int>LaserY;
 
   vector<int>BreakIndex;
   vector<LinePara>FittedLine;
 
+  line_extraction::LineExtractionHokuyo lineextractionhokuyo;
+  
   State state_;
 
   HokuyoConfig config_;

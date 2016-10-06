@@ -7,7 +7,11 @@ src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
  ../include/clusering.h
  ../include/hokuyo.h
  ../include/hokuyo_driver.h
+ ../include/line.h
+ ../include/line_extraction.h
+ ../include/line_extraction_hokuyo.h
  ../include/myself.h
+ ../include/utilities.h
  /home/ics/git/slam/slam_by_myself/src/hokuyo_driver.cpp
  /usr/local/include/opencv2/core/core.hpp
  /usr/local/include/opencv2/core/core_c.h

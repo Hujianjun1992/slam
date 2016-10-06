@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/utilities.h
+vector
+-
+cmath
+-
+
+/home/ics/git/slam/slam_by_myself/src/utilities.cpp
+utilities.h
+/home/ics/git/slam/slam_by_myself/src/utilities.h
+

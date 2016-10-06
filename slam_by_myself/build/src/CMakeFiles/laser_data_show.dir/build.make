@@ -115,9 +115,18 @@ laser_data_show_EXTERNAL_OBJECTS =
 ../bin/laser_data_show: /usr/local/lib/libopencv_imgproc.so.2.4.13
 ../bin/laser_data_show: /usr/local/lib/libopencv_flann.so.2.4.13
 ../bin/laser_data_show: /usr/local/lib/libopencv_core.so.2.4.13
-../bin/laser_data_show: ../lib/libhokuyo.a
 ../bin/laser_data_show: ../lib/libWeightedFit.a
 ../bin/laser_data_show: ../lib/libclusering.a
+../bin/laser_data_show: ../lib/libline_extraction_hokuyo.a
+../bin/laser_data_show: ../lib/libhokuyo.a
+../bin/laser_data_show: ../lib/libline_extraction.a
+../bin/laser_data_show: ../lib/libline.a
+../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_system.so
+../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_thread.so
+../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_chrono.so
+../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_date_time.so
+../bin/laser_data_show: /usr/lib/x86_64-linux-gnu/libboost_atomic.so
+../bin/laser_data_show: ../lib/libutilities.a
 ../bin/laser_data_show: src/CMakeFiles/laser_data_show.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../../bin/laser_data_show"
 	cd /home/ics/git/slam/slam_by_myself/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/laser_data_show.dir/link.txt --verbose=$(VERBOSE)

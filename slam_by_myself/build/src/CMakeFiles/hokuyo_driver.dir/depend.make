@@ -6,7 +6,11 @@ src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/WeightedFit.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/clusering.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/hokuyo.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/hokuyo_driver.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/line.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/line_extraction.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/line_extraction_hokuyo.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/myself.h
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../include/utilities.h
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../src/hokuyo_driver.cpp
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/core/core.hpp
 src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: /usr/local/include/opencv2/core/core_c.h

@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/line.h
+vector
+-
+boost/array.hpp
+-
+utilities.h
+../include/utilities.h
+
+../include/line_extraction.h
+cmath
+-
+vector
+-
+boost/array.hpp
+-
+eigen3/Eigen/Dense
+-
+utilities.h
+../include/utilities.h
+line.h
+../include/line.h
+
+../include/utilities.h
+vector
+-
+cmath
+-
+
+/home/ics/git/slam/slam_by_myself/src/line_extraction.cpp
+line_extraction.h
+/home/ics/git/slam/slam_by_myself/src/line_extraction.h
+algorithm
+-
+iostream
+-
+eigen3/Eigen/Dense
+-
+

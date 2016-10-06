@@ -6,7 +6,11 @@ src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/WeightedFit
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/clusering.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/hokuyo.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/hokuyo_driver.h
+src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/line.h
+src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/line_extraction.h
+src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/line_extraction_hokuyo.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/myself.h
+src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../include/utilities.h
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: ../src/laser_data_show.cpp
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: /usr/local/include/opencv2/calib3d/calib3d.hpp
 src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.o: /usr/local/include/opencv2/contrib/contrib.hpp

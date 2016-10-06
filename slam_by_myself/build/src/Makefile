@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /home/ics/git/slam/slam_by_myself/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +111,51 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+src/CMakeFiles/utilities.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/utilities.dir/rule
+.PHONY : src/CMakeFiles/utilities.dir/rule
+
+# Convenience name for target.
+utilities: src/CMakeFiles/utilities.dir/rule
+
+.PHONY : utilities
+
+# fast build rule for target.
+utilities/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/build
+.PHONY : utilities/fast
+
+# Convenience name for target.
+src/CMakeFiles/line.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line.dir/rule
+.PHONY : src/CMakeFiles/line.dir/rule
+
+# Convenience name for target.
+line: src/CMakeFiles/line.dir/rule
+
+.PHONY : line
+
+# fast build rule for target.
+line/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/build
+.PHONY : line/fast
+
+# Convenience name for target.
+src/CMakeFiles/line_extraction.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line_extraction.dir/rule
+.PHONY : src/CMakeFiles/line_extraction.dir/rule
+
+# Convenience name for target.
+line_extraction: src/CMakeFiles/line_extraction.dir/rule
+
+.PHONY : line_extraction
+
+# fast build rule for target.
+line_extraction/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/build
+.PHONY : line_extraction/fast
+
+# Convenience name for target.
 src/CMakeFiles/laser_data_show.dir/rule:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/laser_data_show.dir/rule
 .PHONY : src/CMakeFiles/laser_data_show.dir/rule
@@ -126,19 +171,34 @@ laser_data_show/fast:
 .PHONY : laser_data_show/fast
 
 # Convenience name for target.
-src/CMakeFiles/hokuyo_driver.dir/rule:
-	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo_driver.dir/rule
-.PHONY : src/CMakeFiles/hokuyo_driver.dir/rule
+src/CMakeFiles/line_extraction_hokuyo.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line_extraction_hokuyo.dir/rule
+.PHONY : src/CMakeFiles/line_extraction_hokuyo.dir/rule
 
 # Convenience name for target.
-hokuyo_driver: src/CMakeFiles/hokuyo_driver.dir/rule
+line_extraction_hokuyo: src/CMakeFiles/line_extraction_hokuyo.dir/rule
 
-.PHONY : hokuyo_driver
+.PHONY : line_extraction_hokuyo
 
 # fast build rule for target.
-hokuyo_driver/fast:
-	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
-.PHONY : hokuyo_driver/fast
+line_extraction_hokuyo/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/build
+.PHONY : line_extraction_hokuyo/fast
+
+# Convenience name for target.
+src/CMakeFiles/clusering.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clusering.dir/rule
+.PHONY : src/CMakeFiles/clusering.dir/rule
+
+# Convenience name for target.
+clusering: src/CMakeFiles/clusering.dir/rule
+
+.PHONY : clusering
+
+# fast build rule for target.
+clusering/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
+.PHONY : clusering/fast
 
 # Convenience name for target.
 src/CMakeFiles/hokuyo.dir/rule:
@@ -156,6 +216,21 @@ hokuyo/fast:
 .PHONY : hokuyo/fast
 
 # Convenience name for target.
+src/CMakeFiles/hokuyo_driver.dir/rule:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo_driver.dir/rule
+.PHONY : src/CMakeFiles/hokuyo_driver.dir/rule
+
+# Convenience name for target.
+hokuyo_driver: src/CMakeFiles/hokuyo_driver.dir/rule
+
+.PHONY : hokuyo_driver
+
+# fast build rule for target.
+hokuyo_driver/fast:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
+.PHONY : hokuyo_driver/fast
+
+# Convenience name for target.
 src/CMakeFiles/WeightedFit.dir/rule:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/WeightedFit.dir/rule
 .PHONY : src/CMakeFiles/WeightedFit.dir/rule
@@ -169,21 +244,6 @@ WeightedFit: src/CMakeFiles/WeightedFit.dir/rule
 WeightedFit/fast:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
 .PHONY : WeightedFit/fast
-
-# Convenience name for target.
-src/CMakeFiles/clusering.dir/rule:
-	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clusering.dir/rule
-.PHONY : src/CMakeFiles/clusering.dir/rule
-
-# Convenience name for target.
-clusering: src/CMakeFiles/clusering.dir/rule
-
-.PHONY : clusering
-
-# fast build rule for target.
-clusering/fast:
-	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
-.PHONY : clusering/fast
 
 WeightedFit.o: WeightedFit.cpp.o
 
@@ -320,19 +380,131 @@ laser_data_show.cpp.s:
 	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/laser_data_show.cpp.s
 .PHONY : laser_data_show.cpp.s
 
+line.o: line.cpp.o
+
+.PHONY : line.o
+
+# target to build an object file
+line.cpp.o:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/line.cpp.o
+.PHONY : line.cpp.o
+
+line.i: line.cpp.i
+
+.PHONY : line.i
+
+# target to preprocess a source file
+line.cpp.i:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/line.cpp.i
+.PHONY : line.cpp.i
+
+line.s: line.cpp.s
+
+.PHONY : line.s
+
+# target to generate assembly for a file
+line.cpp.s:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/line.cpp.s
+.PHONY : line.cpp.s
+
+line_extraction.o: line_extraction.cpp.o
+
+.PHONY : line_extraction.o
+
+# target to build an object file
+line_extraction.cpp.o:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/line_extraction.cpp.o
+.PHONY : line_extraction.cpp.o
+
+line_extraction.i: line_extraction.cpp.i
+
+.PHONY : line_extraction.i
+
+# target to preprocess a source file
+line_extraction.cpp.i:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/line_extraction.cpp.i
+.PHONY : line_extraction.cpp.i
+
+line_extraction.s: line_extraction.cpp.s
+
+.PHONY : line_extraction.s
+
+# target to generate assembly for a file
+line_extraction.cpp.s:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/line_extraction.cpp.s
+.PHONY : line_extraction.cpp.s
+
+line_extraction_hokuyo.o: line_extraction_hokuyo.cpp.o
+
+.PHONY : line_extraction_hokuyo.o
+
+# target to build an object file
+line_extraction_hokuyo.cpp.o:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/line_extraction_hokuyo.cpp.o
+.PHONY : line_extraction_hokuyo.cpp.o
+
+line_extraction_hokuyo.i: line_extraction_hokuyo.cpp.i
+
+.PHONY : line_extraction_hokuyo.i
+
+# target to preprocess a source file
+line_extraction_hokuyo.cpp.i:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/line_extraction_hokuyo.cpp.i
+.PHONY : line_extraction_hokuyo.cpp.i
+
+line_extraction_hokuyo.s: line_extraction_hokuyo.cpp.s
+
+.PHONY : line_extraction_hokuyo.s
+
+# target to generate assembly for a file
+line_extraction_hokuyo.cpp.s:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/line_extraction_hokuyo.cpp.s
+.PHONY : line_extraction_hokuyo.cpp.s
+
+utilities.o: utilities.cpp.o
+
+.PHONY : utilities.o
+
+# target to build an object file
+utilities.cpp.o:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/utilities.cpp.o
+.PHONY : utilities.cpp.o
+
+utilities.i: utilities.cpp.i
+
+.PHONY : utilities.i
+
+# target to preprocess a source file
+utilities.cpp.i:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/utilities.cpp.i
+.PHONY : utilities.cpp.i
+
+utilities.s: utilities.cpp.s
+
+.PHONY : utilities.s
+
+# target to generate assembly for a file
+utilities.cpp.s:
+	cd /home/ics/git/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/utilities.cpp.s
+.PHONY : utilities.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... laser_data_show"
 	@echo "... edit_cache"
-	@echo "... hokuyo_driver"
-	@echo "... hokuyo"
-	@echo "... WeightedFit"
+	@echo "... utilities"
+	@echo "... line"
+	@echo "... line_extraction"
+	@echo "... laser_data_show"
+	@echo "... line_extraction_hokuyo"
 	@echo "... clusering"
+	@echo "... hokuyo"
+	@echo "... hokuyo_driver"
+	@echo "... WeightedFit"
+	@echo "... rebuild_cache"
 	@echo "... WeightedFit.o"
 	@echo "... WeightedFit.i"
 	@echo "... WeightedFit.s"
@@ -348,6 +520,18 @@ help:
 	@echo "... laser_data_show.o"
 	@echo "... laser_data_show.i"
 	@echo "... laser_data_show.s"
+	@echo "... line.o"
+	@echo "... line.i"
+	@echo "... line.s"
+	@echo "... line_extraction.o"
+	@echo "... line_extraction.i"
+	@echo "... line_extraction.s"
+	@echo "... line_extraction_hokuyo.o"
+	@echo "... line_extraction_hokuyo.i"
+	@echo "... line_extraction_hokuyo.s"
+	@echo "... utilities.o"
+	@echo "... utilities.i"
+	@echo "... utilities.s"
 .PHONY : help
 
 

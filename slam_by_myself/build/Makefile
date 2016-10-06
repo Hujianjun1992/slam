@@ -111,6 +111,45 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named utilities
+
+# Build rule for target.
+utilities: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 utilities
+.PHONY : utilities
+
+# fast build rule for target.
+utilities/fast:
+	$(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/build
+.PHONY : utilities/fast
+
+#=============================================================================
+# Target rules for targets named line
+
+# Build rule for target.
+line: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 line
+.PHONY : line
+
+# fast build rule for target.
+line/fast:
+	$(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/build
+.PHONY : line/fast
+
+#=============================================================================
+# Target rules for targets named line_extraction
+
+# Build rule for target.
+line_extraction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 line_extraction
+.PHONY : line_extraction
+
+# fast build rule for target.
+line_extraction/fast:
+	$(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/build
+.PHONY : line_extraction/fast
+
+#=============================================================================
 # Target rules for targets named laser_data_show
 
 # Build rule for target.
@@ -124,17 +163,30 @@ laser_data_show/fast:
 .PHONY : laser_data_show/fast
 
 #=============================================================================
-# Target rules for targets named hokuyo_driver
+# Target rules for targets named line_extraction_hokuyo
 
 # Build rule for target.
-hokuyo_driver: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hokuyo_driver
-.PHONY : hokuyo_driver
+line_extraction_hokuyo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 line_extraction_hokuyo
+.PHONY : line_extraction_hokuyo
 
 # fast build rule for target.
-hokuyo_driver/fast:
-	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
-.PHONY : hokuyo_driver/fast
+line_extraction_hokuyo/fast:
+	$(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/build
+.PHONY : line_extraction_hokuyo/fast
+
+#=============================================================================
+# Target rules for targets named clusering
+
+# Build rule for target.
+clusering: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 clusering
+.PHONY : clusering
+
+# fast build rule for target.
+clusering/fast:
+	$(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
+.PHONY : clusering/fast
 
 #=============================================================================
 # Target rules for targets named hokuyo
@@ -150,6 +202,19 @@ hokuyo/fast:
 .PHONY : hokuyo/fast
 
 #=============================================================================
+# Target rules for targets named hokuyo_driver
+
+# Build rule for target.
+hokuyo_driver: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hokuyo_driver
+.PHONY : hokuyo_driver
+
+# fast build rule for target.
+hokuyo_driver/fast:
+	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
+.PHONY : hokuyo_driver/fast
+
+#=============================================================================
 # Target rules for targets named WeightedFit
 
 # Build rule for target.
@@ -162,19 +227,6 @@ WeightedFit/fast:
 	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
 .PHONY : WeightedFit/fast
 
-#=============================================================================
-# Target rules for targets named clusering
-
-# Build rule for target.
-clusering: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 clusering
-.PHONY : clusering
-
-# fast build rule for target.
-clusering/fast:
-	$(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
-.PHONY : clusering/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -183,11 +235,15 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... utilities"
+	@echo "... line"
+	@echo "... line_extraction"
 	@echo "... laser_data_show"
-	@echo "... hokuyo_driver"
-	@echo "... hokuyo"
-	@echo "... WeightedFit"
+	@echo "... line_extraction_hokuyo"
 	@echo "... clusering"
+	@echo "... hokuyo"
+	@echo "... hokuyo_driver"
+	@echo "... WeightedFit"
 .PHONY : help
 
 

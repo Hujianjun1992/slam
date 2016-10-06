@@ -266,50 +266,69 @@ HokuyoDriver::getLaserData()
 void
 HokuyoDriver::DrawLaserData()
 {
+  vector<line_extraction::Line> line_tmp;
+  line_tmp = lineextractionhokuyo.laserScanCallback(scan_);
 
-  Mat image_tmp_orgi(800, 800, CV_8UC3, Scalar(20, 20, 20));
-  Mat image_tmp_line(800, 800, CV_8UC3, Scalar(20, 20, 20));
-  Mat image_tmp_test(800, 800, CV_8UC3, Scalar(20, 20, 20));
-
-  LaserDataCovert();
-  MedFilter(LaserRho, LaserTheta);
-
-  //  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
-
-  //  CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
-
-
-  CreateLaserImage(&image_tmp_orgi, LaserRho, LaserTheta);
-
-  //  cout << YELLOW"lineCnt :" << RESET << BreakPolyLine() << endl;
-
-
-
-  image_tmp_line = HoughLines(&image_tmp_orgi);
-
-  //  FitLine(FittedLine, SepLaserRho, SepLaserTheta);
-  //  DrawLaserLine(FittedLine, &image_tmp_line);
-
-  io_mutex.lock();
-  image_tmp_orgi.copyTo(image_orgi);
-  image_tmp_test.copyTo(image_test);
-  image_tmp_line.copyTo(image_line);
-  io_mutex.unlock();
-
-
-  // cout << "\t" << RED << "show information " << RESET << endl;
-  // info_show("scan.config.min_angle",scan_.config.min_angle);
-  // info_show("scan.config.max_angle",scan_.config.max_angle);
-  // info_show("scan.config.ang_increment",scan_.config.ang_increment);
-  // info_show("scan.config.time_increment",scan_.config.time_increment);
-  // info_show("scan.config.scan_time",scan_.config.scan_time);
-  // info_show("scan.config.min_range",scan_.config.min_range);
-  // info_show("scan.config.max_range",scan_.config.max_range);
-  // info_show("scan.config.range_res",scan_.config.range_res);
-  // info_show("scan.self_time_stamp",scan_.self_time_stamp);
-  // info_show("scan.system_time_stamp",scan_.system_time_stamp);
-
+  //  for (uint i = 0; i < line_tmp.size(); ++i) {
+    //    cout << line_tmp[0].getStart() << endl;
+  //  }
+  cout << "line num----->" << line_tmp.size() << endl;
 }
+// void
+// HokuyoDriver::DrawLaserData()
+// {
+
+//   Mat image_tmp_orgi(800, 800, CV_8UC3, Scalar(20, 20, 20));
+//   Mat image_tmp_line(800, 800, CV_8UC3, Scalar(20, 20, 20));
+//   Mat image_tmp_test(800, 800, CV_8UC3, Scalar(20, 20, 20));
+
+//   LaserDataCovert();
+//   MedFilter(LaserRho, LaserTheta);
+//   // cout << RED"scan_.config.min_angle---->" RESET << scan_.config.min_angle << endl;
+//   // cout << RED"scan_.config.max_angle---->" RESET << scan_.config.max_angle << endl;
+//   // cout << RED"scan_.config.ang_increment---->" RESET << scan_.config.ang_increment << endl;
+//   // cout << RED"scan_.config.time_increment---->" RESET << scan_.config.time_increment << endl;
+//   // cout << RED"scan_.config.scan_time---->" RESET << scan_.config.scan_time << endl;
+//   // cout << RED"scan_.config.min_range---->" RESET << scan_.config.min_range << endl;
+//   // cout << RED"scan_.config.max_range---->" RESET << scan_.config.max_range << endl;
+//   // cout << RED"scan_.config.range_res---->" RESET << scan_.config.range_res << endl;
+
+//   //  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
+
+//   //  CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
+
+
+//   CreateLaserImage(&image_tmp_orgi, LaserRho, LaserTheta);
+
+//   //  cout << YELLOW"lineCnt :" << RESET << BreakPolyLine() << endl;
+
+
+
+//   image_tmp_line = HoughLines(&image_tmp_orgi);
+
+//   //  FitLine(FittedLine, SepLaserRho, SepLaserTheta);
+//   //  DrawLaserLine(FittedLine, &image_tmp_line);
+
+//   io_mutex.lock();
+//   image_tmp_orgi.copyTo(image_orgi);
+//   image_tmp_test.copyTo(image_test);
+//   image_tmp_line.copyTo(image_line);
+//   io_mutex.unlock();
+
+
+//   // cout << "\t" << RED << "show information " << RESET << endl;
+//   // info_show("scan.config.min_angle",scan_.config.min_angle);
+//   // info_show("scan.config.max_angle",scan_.config.max_angle);
+//   // info_show("scan.config.ang_increment",scan_.config.ang_increment);
+//   // info_show("scan.config.time_increment",scan_.config.time_increment);
+//   // info_show("scan.config.scan_time",scan_.config.scan_time);
+//   // info_show("scan.config.min_range",scan_.config.min_range);
+//   // info_show("scan.config.max_range",scan_.config.max_range);
+//   // info_show("scan.config.range_res",scan_.config.range_res);
+//   // info_show("scan.self_time_stamp",scan_.self_time_stamp);
+//   // info_show("scan.system_time_stamp",scan_.system_time_stamp);
+
+// }
 
 void
 HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<float>& LaserTheta)
@@ -685,7 +704,7 @@ HokuyoDriver::HoughLines(Mat* srcImage)
 
   cout << GREEN"line num : " << lines.size() << RESET << endl;
 
-  vector<Rectangle> rect(lines.size());
+  //  vector<Rectangle> rect(lines.size());
 
   for (int i = 0; i < lines.size(); ++i) {
     Vec4i l = lines[i];
