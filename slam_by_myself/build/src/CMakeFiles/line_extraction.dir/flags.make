@@ -6,5 +6,5 @@ CXX_FLAGS =   -std=gnu++11
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ics/git/slam/slam_by_myself/include -I/usr/local/include/opencv -I/usr/local/include -I/home/ics/git/slam/slam_by_myself/src/include 
+CXX_INCLUDES = -I/home/ics/git/myself/include -I/usr/local/include/opencv -I/usr/local/include -I/home/ics/git/myself/src/include 
 

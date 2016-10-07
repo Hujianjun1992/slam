@@ -54,10 +54,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ics/git/slam/slam_by_myself
+CMAKE_SOURCE_DIR = /home/ics/git/myself
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ics/git/slam/slam_by_myself/build
+CMAKE_BINARY_DIR = /home/ics/git/myself/build
 
 #=============================================================================
 # Directory level rules for directory src
@@ -100,7 +100,7 @@ src/preinstall:
 src/CMakeFiles/utilities.dir/all:
 	$(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/depend
 	$(MAKE) -f src/CMakeFiles/utilities.dir/build.make src/CMakeFiles/utilities.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=17,18 "Built target utilities"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=17,18 "Built target utilities"
 .PHONY : src/CMakeFiles/utilities.dir/all
 
 # Include target in all.
@@ -110,9 +110,9 @@ all: src/CMakeFiles/utilities.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/utilities.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/utilities.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/utilities.dir/rule
 
 # Convenience name for target.
@@ -137,7 +137,7 @@ clean: src/CMakeFiles/utilities.dir/clean
 src/CMakeFiles/line.dir/all: src/CMakeFiles/utilities.dir/all
 	$(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/depend
 	$(MAKE) -f src/CMakeFiles/line.dir/build.make src/CMakeFiles/line.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=11,12 "Built target line"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=11,12 "Built target line"
 .PHONY : src/CMakeFiles/line.dir/all
 
 # Include target in all.
@@ -147,9 +147,9 @@ all: src/CMakeFiles/line.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/line.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/line.dir/rule
 
 # Convenience name for target.
@@ -175,7 +175,7 @@ src/CMakeFiles/line_extraction.dir/all: src/CMakeFiles/utilities.dir/all
 src/CMakeFiles/line_extraction.dir/all: src/CMakeFiles/line.dir/all
 	$(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/depend
 	$(MAKE) -f src/CMakeFiles/line_extraction.dir/build.make src/CMakeFiles/line_extraction.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=13,14 "Built target line_extraction"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=13,14 "Built target line_extraction"
 .PHONY : src/CMakeFiles/line_extraction.dir/all
 
 # Include target in all.
@@ -185,9 +185,9 @@ all: src/CMakeFiles/line_extraction.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/line_extraction.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line_extraction.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/line_extraction.dir/rule
 
 # Convenience name for target.
@@ -209,17 +209,17 @@ clean: src/CMakeFiles/line_extraction.dir/clean
 # Target rules for target src/CMakeFiles/laser_data_show.dir
 
 # All Build rule for target.
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/utilities.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo_driver.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/WeightedFit.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/clusering.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/utilities.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/depend
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=9,10 "Built target laser_data_show"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=9,10 "Built target laser_data_show"
 .PHONY : src/CMakeFiles/laser_data_show.dir/all
 
 # Include target in all.
@@ -229,9 +229,9 @@ all: src/CMakeFiles/laser_data_show.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/laser_data_show.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 18
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 18
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/laser_data_show.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/laser_data_show.dir/rule
 
 # Convenience name for target.
@@ -253,13 +253,13 @@ clean: src/CMakeFiles/laser_data_show.dir/clean
 # Target rules for target src/CMakeFiles/line_extraction_hokuyo.dir
 
 # All Build rule for target.
-src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/utilities.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/line.dir/all
+src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/line_extraction.dir/all
 	$(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/depend
 	$(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=15,16 "Built target line_extraction_hokuyo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=15,16 "Built target line_extraction_hokuyo"
 .PHONY : src/CMakeFiles/line_extraction_hokuyo.dir/all
 
 # Include target in all.
@@ -269,9 +269,9 @@ all: src/CMakeFiles/line_extraction_hokuyo.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/line_extraction_hokuyo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 10
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 10
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/line_extraction_hokuyo.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/line_extraction_hokuyo.dir/rule
 
 # Convenience name for target.
@@ -296,7 +296,7 @@ clean: src/CMakeFiles/line_extraction_hokuyo.dir/clean
 src/CMakeFiles/clusering.dir/all:
 	$(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/depend
 	$(MAKE) -f src/CMakeFiles/clusering.dir/build.make src/CMakeFiles/clusering.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=3,4 "Built target clusering"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=3,4 "Built target clusering"
 .PHONY : src/CMakeFiles/clusering.dir/all
 
 # Include target in all.
@@ -306,9 +306,9 @@ all: src/CMakeFiles/clusering.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/clusering.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/clusering.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/clusering.dir/rule
 
 # Convenience name for target.
@@ -333,7 +333,7 @@ clean: src/CMakeFiles/clusering.dir/clean
 src/CMakeFiles/hokuyo.dir/all:
 	$(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/depend
 	$(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=5,6 "Built target hokuyo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=5,6 "Built target hokuyo"
 .PHONY : src/CMakeFiles/hokuyo.dir/all
 
 # Include target in all.
@@ -343,9 +343,9 @@ all: src/CMakeFiles/hokuyo.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/hokuyo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/hokuyo.dir/rule
 
 # Convenience name for target.
@@ -367,16 +367,16 @@ clean: src/CMakeFiles/hokuyo.dir/clean
 # Target rules for target src/CMakeFiles/hokuyo_driver.dir
 
 # All Build rule for target.
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/hokuyo.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/WeightedFit.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/utilities.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/clusering.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/hokuyo.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/WeightedFit.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/depend
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=7,8 "Built target hokuyo_driver"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=7,8 "Built target hokuyo_driver"
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/all
 
 # Include target in all.
@@ -386,9 +386,9 @@ all: src/CMakeFiles/hokuyo_driver.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/hokuyo_driver.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 16
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 16
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/hokuyo_driver.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/rule
 
 # Convenience name for target.
@@ -413,7 +413,7 @@ clean: src/CMakeFiles/hokuyo_driver.dir/clean
 src/CMakeFiles/WeightedFit.dir/all:
 	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/depend
 	$(MAKE) -f src/CMakeFiles/WeightedFit.dir/build.make src/CMakeFiles/WeightedFit.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/slam/slam_by_myself/build/CMakeFiles --progress-num=1,2 "Built target WeightedFit"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ics/git/myself/build/CMakeFiles --progress-num=1,2 "Built target WeightedFit"
 .PHONY : src/CMakeFiles/WeightedFit.dir/all
 
 # Include target in all.
@@ -423,9 +423,9 @@ all: src/CMakeFiles/WeightedFit.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/WeightedFit.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/WeightedFit.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/WeightedFit.dir/rule
 
 # Convenience name for target.

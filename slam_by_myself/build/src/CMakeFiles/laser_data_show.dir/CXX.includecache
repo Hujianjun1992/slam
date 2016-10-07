@@ -126,9 +126,9 @@ vector
 cmath
 -
 
-/home/ics/git/slam/slam_by_myself/src/laser_data_show.cpp
+/home/ics/git/myself/src/laser_data_show.cpp
 hokuyo_driver.h
-/home/ics/git/slam/slam_by_myself/src/hokuyo_driver.h
+/home/ics/git/myself/src/hokuyo_driver.h
 opencv2/opencv.hpp
 -
 

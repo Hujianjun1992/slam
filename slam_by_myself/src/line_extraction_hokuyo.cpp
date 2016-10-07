@@ -69,7 +69,7 @@ void LineExtractionHokuyo::loadParameters()
   line_extraction_.setOutlierDist(outlier_dist);
 
   min_line_points = atoi( pd_.getData( "min_line_points" ).c_str() );
-  line_extraction_.setMinLineLength(min_line_points);
+  line_extraction_.setMinLinePoints(min_line_points);
 
 #ifdef LINEEXTRACTIONDEBUG
   cout << RED"\t\t[line_extraction_parameters]\t\t" << RESET << endl;
@@ -102,14 +102,17 @@ void LineExtractionHokuyo::cacheData(const hokuyo::LaserScan &scan_msg)
   std::vector<double> bearings, cos_bearings, sin_bearings;
   std::vector<unsigned int> indices;
   unsigned int i = 0;
+//  cout << "\t\tdata#########################start" << i << endl;
   for (double b = scan_msg.config.min_angle; b <= scan_msg.config.max_angle; b += scan_msg.config.ang_increment)
   {
     bearings.push_back(b);
     cos_bearings.push_back(cos(b));
     sin_bearings.push_back(sin(b));
     indices.push_back(i);
+//    cout << "\tbearings : " << bearings[i] << "\tcos : " << cos_bearings[i] << "\tsin : " << sin_bearings[i] << "\tindices : " << indices[i] << endl;
     ++i;
   }
+//  cout << "\t\tdata#########################endl" << endl;
 
   line_extraction_.setCachedData(bearings, cos_bearings, sin_bearings, indices);
 
@@ -124,11 +127,12 @@ std::vector<Line> LineExtractionHokuyo::laserScanCallback(const hokuyo::LaserSca
 
   if (!data_cached_)
   {
-    cout << "hujianjun" << endl;
+//    cout << "hujianjun" << endl;
     cacheData(scan_msg);
     data_cached_ = true;
   }
   std::vector<double> scan_ranges_doubles(scan_msg.ranges.begin(), scan_msg.ranges.end());
+//cout << scan_ranges_doubles.size() << endl;
   line_extraction_.setRangeData(scan_ranges_doubles);
 
 

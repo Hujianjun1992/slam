@@ -3,13 +3,23 @@
 
 # LineExtractionHokuyo 里定义的参数
 
+#激光雷达角度的误差
 bearing_std_dev=1e-5
+#激光雷达距离的误差
 range_std_dev=0.012
+
 least_sq_angle_thresh=0.0001
+
 least_sq_radius_thresh=0.0001
-max_line_gap=0.5
+#两个点之间的最小距离 超过这个值 有可能多一条折线 0.5
+max_line_gap=0.3
+#线段的最小距离 0.7
 min_line_length=0.7
+#该距离内的点 过滤掉 0.5
 min_range=0.5
-min_split_dist=0.04
+#最小的点到直线的距离 超过这个距离认为折线0.04
+min_split_dist=0.1
+#离散点 超过这个值就是离散点 0.06
 outlier_dist=0.06
-min_line_points=10
+#组成线段的最小点数 10
+min_line_points=30

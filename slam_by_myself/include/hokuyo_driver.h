@@ -18,8 +18,8 @@
 
 #define MAX_DISTANCE 50
 #define MIN_DISTANCE 0.5f
-#define IMAGE_WIDTH 1500
-#define IMAGE_HEIGHT 1500
+#define IMAGE_WIDTH 800
+#define IMAGE_HEIGHT 800
 using namespace std;
 using namespace cv;
 
@@ -160,7 +160,8 @@ class HokuyoDriver
   int PolyContourFit(float* X, float* Y, int n, float Eps);
   int BreakPolyLine();
   void FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta);
-  void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
+  //  void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
+  Mat DrawLaserLine(vector<line_extraction::Line>& lines);
   void MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta);
   Mat HoughLines(Mat* srcImage);
 

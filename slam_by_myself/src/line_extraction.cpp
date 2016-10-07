@@ -24,12 +24,14 @@ void LineExtraction::extractLines(std::vector<Line>& lines)
   // Resets
   filtered_indices_ = c_data_.indices;
   lines_.clear();
-
+//  std::cout << "filtered_indices_ num : " << filtered_indices_.size() << std::endl;
   // Filter indices
   filterClosePoints();
   filterOutlierPoints();
 
+//  std::cout << "filtered_indices_ num : " << filtered_indices_.size() << std::endl;
   // Return no lines if not enough points left
+//    std::cout << "params_.min_line_points : " << params_.min_line_points << std::endl;
   if (filtered_indices_.size() <= std::max(params_.min_line_points, static_cast<unsigned int>(3)))
   {
     return;
@@ -67,6 +69,10 @@ void LineExtraction::setCachedData(const std::vector<double>& bearings,
 void LineExtraction::setRangeData(const std::vector<double>& ranges)
 {
   r_data_.ranges = ranges;
+//  for (int i = 0; i < r_data_.ranges.size(); ++i)
+//  {
+//	std::cout << "\t\ti : " << i << "\t\tr_data_.ranges : " << r_data_.ranges[i] << std::endl;
+//  }
   r_data_.xs.clear();
   r_data_.ys.clear();
   for (std::vector<unsigned int>::const_iterator cit = c_data_.indices.begin(); 
@@ -75,6 +81,15 @@ void LineExtraction::setRangeData(const std::vector<double>& ranges)
     r_data_.xs.push_back(c_data_.cos_bearings[*cit] * ranges[*cit]);
     r_data_.ys.push_back(c_data_.sin_bearings[*cit] * ranges[*cit]);
   }
+
+//  for (int i = 0; i < r_data_.xs.size(); ++i)
+//  {
+//	std::cout << "\t\txs : " << i << "\t\tr_data_.ranges : " << r_data_.xs[i] << std::endl;
+//  }
+//  for (int i = 0; i < r_data_.ys.size(); ++i)
+//  {
+//	std::cout << "\t\tys : " << i << "\t\tr_data_.ranges : " << r_data_.ys[i] << std::endl;
+//  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -290,11 +305,12 @@ void LineExtraction::mergeLines()
 void LineExtraction::split(const std::vector<unsigned int>& indices)
 {
   // Don't split if only a single point (only occurs when orphaned by gap)
+ // std::cout << "xuhong" << std::endl;
   if (indices.size() <= 1)
   {
     return;
   }
-
+  //std::cout << "hujianjun" << std::endl;
   Line line(c_data_, r_data_, params_, indices);
   line.endpointFit();
   double dist_max = 0;
@@ -347,6 +363,7 @@ void LineExtraction::split(const std::vector<unsigned int>& indices)
     split(second_split);
   }
 
+ // std::cout << "\tline num : " << lines_.size() << std::endl;
 }
 
 } // namespace line_extraction

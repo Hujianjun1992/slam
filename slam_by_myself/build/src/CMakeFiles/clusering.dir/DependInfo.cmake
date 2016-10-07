@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ics/git/slam/slam_by_myself/src/clusering.cpp" "/home/ics/git/slam/slam_by_myself/build/src/CMakeFiles/clusering.dir/clusering.cpp.o"
+  "/home/ics/git/myself/src/clusering.cpp" "/home/ics/git/myself/build/src/CMakeFiles/clusering.dir/clusering.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

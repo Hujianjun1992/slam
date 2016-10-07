@@ -1,12 +1,7 @@
-//#include <iostream>
-//#include <math.h>
 #include "hokuyo_driver.h"
-
 #include "myself.h"
 
-#define DEBUG
-//#define USING_CLUSER
-//using namespace std;
+//#define DEBUG
 
 HokuyoDriver::HokuyoDriver(HokuyoConfig& config):config_(config)
 {
@@ -266,13 +261,40 @@ HokuyoDriver::getLaserData()
 void
 HokuyoDriver::DrawLaserData()
 {
+  Mat image_tmp_orgi(800, 800, CV_8UC3, Scalar(20, 20, 20));
+  Mat image_tmp_line(800, 800, CV_8UC3, Scalar(20, 20, 20));
+  Mat image_tmp_test(800, 800, CV_8UC3, Scalar(20, 20, 20));
+
   vector<line_extraction::Line> line_tmp;
   line_tmp = lineextractionhokuyo.laserScanCallback(scan_);
+  cout << BLUE"\t\t line num------------>" << RED << line_tmp.size() << RESET << endl;
 
-  //  for (uint i = 0; i < line_tmp.size(); ++i) {
-    //    cout << line_tmp[0].getStart() << endl;
-  //  }
-  cout << "line num----->" << line_tmp.size() << endl;
+  image_tmp_line = DrawLaserLine(line_tmp);
+
+  // for (uint i = 0; i < line_tmp.size(); ++i) {
+  //   Vec4i l;
+  //   boost::array<double, 2> start_tmp = line_tmp[i].getStart();
+  //   boost::array<double, 2> end_tmp = line_tmp[i].getEnd();
+
+  //   l[0] = start_tmp[0] * 50 + 400;
+  //   l[1] = start_tmp[1] * 50 + 400;
+  //   l[2] = end_tmp[0] * 50 + 400;
+  //   l[3] = end_tmp[1] * 50 + 400;
+  //   line ( image_tmp_line, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(0, 0, 255), 1, CV_AA);
+  // }
+
+  LaserDataCovert();
+  MedFilter(LaserRho, LaserTheta);
+  CreateLaserImage(&image_tmp_orgi, LaserRho, LaserTheta);
+
+  io_mutex.lock();
+  image_tmp_orgi.copyTo(image_orgi);
+  image_tmp_test.copyTo(image_test);
+  image_tmp_line.copyTo(image_line);
+  io_mutex.unlock();
+
+  // cout << "line num----->" << line_tmp.size() << endl;
+
 }
 // void
 // HokuyoDriver::DrawLaserData()
@@ -571,49 +593,78 @@ HokuyoDriver::FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vec
   //  cout << "FittedLine num :" << FittedLine.size() << endl;
 }
 
-void
-HokuyoDriver::DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage)
+Mat
+HokuyoDriver::DrawLaserLine(vector<line_extraction::Line>& lines)
 {
-  int dx = LaserImage->cols/2;
-  int dy = LaserImage->rows/2;
-  circle(*LaserImage, Point(dx,dy), 5, CV_RGB(0, 0, 255));
-  float x1,y1,x2,y2;
 
-  int colorIndex = 0,colorRGB;
-  int R = 255, G = 0, B = 0;
-  for (int i = 0; i < FittedLine.size(); ++i) {
-    colorRGB = usualColor[colorIndex];
-    R = colorRGB/65536;
-    G = (colorRGB%65536)/256;
-    B = colorRGB%256;
-    colorIndex = (colorIndex + 1)%10;
 
-    x1 = FittedLine.at(i).startPoint.x;
-    y1 = FittedLine.at(i).startPoint.y;
+  Mat image_tmp(IMAGE_HEIGHT, IMAGE_WIDTH, CV_8UC3, Scalar(20, 20, 20));
+  Vec4i l;
+  boost::array<double, 2> start_tmp;
+  boost::array<double, 2> end_tmp;
+  int dx = image_tmp.cols/2;
+  int dy = image_tmp.rows/2;
+  int len_shift = 50;
 
-    x2 = FittedLine.at(i).endPoint.x;
-    y2 = FittedLine.at(i).endPoint.y;
+  circle(image_tmp, Point(dx,dy), 5, CV_RGB(0, 0, 255));
 
-    x1 = x1 * 50 + dx;
-    y1 = y1 * 50 + dy;
-
-    x2 = x2 * 50 + dx;
-    y2 = y2 * 50 + dy;
-
-    //    cout << "hujianjun" << endl;
-
-    //    x1 = -x_start[i] * 50.0 + dx;
-    //    y1 = y_start[i] * 50.0 + dx;
-
-    //    x2 = -x_end[i] * 50.0 + dx;
-    //    y2 = y_end[i] * 50.0 + dy;
-    //    cout<<"x1: "<<x1<<" y1: "<<y1<<" x2: "<<x2<<" y2: "<<y2<<endl;
-    line(*LaserImage,Point(x2,y2),Point(x1,y1),CV_RGB(R,G,B),2,8,0);
+  //  cout << "hujianjun" << lines.size() << endl;
+  for (uint i = 0; i < lines.size(); ++i) {
+    start_tmp = lines[i].getStart();
+    end_tmp = lines[i].getEnd();
+    l[0] = start_tmp[0] * len_shift + dx;
+    l[1] = start_tmp[1] * len_shift + dy;
+    l[2] = end_tmp[0] * len_shift + dx;
+    l[3] = end_tmp[1] * len_shift + dy;
+    //    cout << "hujianjun------>" <<  l[0] << "\t" << l[1] << "\t" << l[2] << "\t" << l[3] << endl;
+    line ( image_tmp, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(0, 0, 255), 1, CV_AA);
   }
-  //  for (int i = 0 ,i < x_start.size(), ++i)
-  //    {
-  //    }
+
+  return image_tmp;
 }
+// void
+// HokuyoDriver::DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage)
+// {
+//   int dx = LaserImage->cols/2;
+//   int dy = LaserImage->rows/2;
+//   circle(*LaserImage, Point(dx,dy), 5, CV_RGB(0, 0, 255));
+//   float x1,y1,x2,y2;
+
+//   int colorIndex = 0,colorRGB;
+//   int R = 255, G = 0, B = 0;
+//   for (int i = 0; i < FittedLine.size(); ++i) {
+//     colorRGB = usualColor[colorIndex];
+//     R = colorRGB/65536;
+//     G = (colorRGB%65536)/256;
+//     B = colorRGB%256;
+//     colorIndex = (colorIndex + 1)%10;
+
+//     x1 = FittedLine.at(i).startPoint.x;
+//     y1 = FittedLine.at(i).startPoint.y;
+
+//     x2 = FittedLine.at(i).endPoint.x;
+//     y2 = FittedLine.at(i).endPoint.y;
+
+//     x1 = x1 * 50 + dx;
+//     y1 = y1 * 50 + dy;
+
+//     x2 = x2 * 50 + dx;
+//     y2 = y2 * 50 + dy;
+
+//     //    cout << "hujianjun" << endl;
+
+//     //    x1 = -x_start[i] * 50.0 + dx;
+//     //    y1 = y_start[i] * 50.0 + dx;
+
+//     //    x2 = -x_end[i] * 50.0 + dx;
+//     //    y2 = y_end[i] * 50.0 + dy;
+//     //    cout<<"x1: "<<x1<<" y1: "<<y1<<" x2: "<<x2<<" y2: "<<y2<<endl;
+//     line(*LaserImage,Point(x2,y2),Point(x1,y1),CV_RGB(R,G,B),2,8,0);
+//   }
+//   //  for (int i = 0 ,i < x_start.size(), ++i)
+//   //    {
+//   //    }
+// }
 
 void
 HokuyoDriver::LaserDataCovert()
