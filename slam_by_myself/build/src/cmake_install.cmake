@@ -1,4 +1,4 @@
-# Install script for directory: /home/ics/git/myself/src
+# Install script for directory: /home/ics/git/slam/slam_by_myself/src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

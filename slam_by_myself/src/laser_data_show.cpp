@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 
   while(1)
     {
+      cout << "hujianjun" << endl;
       io_mutex.lock();
       imshow("laser data show", image_orgi);
       imshow("laser line show", image_line);

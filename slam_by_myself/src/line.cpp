@@ -13,7 +13,9 @@ Line::Line(const CachedData &c_data, const RangeData &r_data, const Params &para
   params_(params),
   indices_(indices)
 {
+;
 }
+
 
 Line::Line(double angle, double radius, const boost::array<double, 4> &covariance,
        const boost::array<double, 2> &start, const boost::array<double, 2> &end,

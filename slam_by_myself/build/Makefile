@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ics/git/myself
+CMAKE_SOURCE_DIR = /home/ics/git/slam/slam_by_myself
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ics/git/myself/build
+CMAKE_BINARY_DIR = /home/ics/git/slam/slam_by_myself/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles /home/ics/git/myself/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles /home/ics/git/slam/slam_by_myself/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/myself/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ics/git/slam/slam_by_myself/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

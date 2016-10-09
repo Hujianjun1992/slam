@@ -126,11 +126,11 @@ vector
 cmath
 -
 
-/home/ics/git/myself/src/hokuyo_driver.cpp
+/home/ics/git/slam/slam_by_myself/src/hokuyo_driver.cpp
 hokuyo_driver.h
-/home/ics/git/myself/src/hokuyo_driver.h
+/home/ics/git/slam/slam_by_myself/src/hokuyo_driver.h
 myself.h
-/home/ics/git/myself/src/myself.h
+/home/ics/git/slam/slam_by_myself/src/myself.h
 
 /usr/local/include/opencv2/core/core.hpp
 opencv2/core/types_c.h

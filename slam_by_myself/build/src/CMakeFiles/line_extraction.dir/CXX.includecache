@@ -34,9 +34,9 @@ vector
 cmath
 -
 
-/home/ics/git/myself/src/line_extraction.cpp
+/home/ics/git/slam/slam_by_myself/src/line_extraction.cpp
 line_extraction.h
-/home/ics/git/myself/src/line_extraction.h
+/home/ics/git/slam/slam_by_myself/src/line_extraction.h
 algorithm
 -
 iostream
