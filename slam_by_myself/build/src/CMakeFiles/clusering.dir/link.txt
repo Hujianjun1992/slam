@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libclusering.a  CMakeFiles/clusering.dir/clusering.cpp.o
-/usr/bin/ranlib ../../lib/libclusering.a

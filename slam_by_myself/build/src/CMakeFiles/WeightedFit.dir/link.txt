@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../../lib/libWeightedFit.a  CMakeFiles/WeightedFit.dir/WeightedFit.cpp.o
-/usr/bin/ranlib ../../lib/libWeightedFit.a

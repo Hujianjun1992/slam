@@ -1,12 +1,14 @@
 find_package(OpenCV REQUIRED)
 
-list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules )
+#list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules )
 find_package(Eigen3 REQUIRED)
 include_directories( include ${Eigen3_INCLUDE_DIR} ${OpenCV_INCLUDE_DIR})
-find_package(Boost REQUIRED COMPONENTS
+find_package(Boost 1.62 REQUIRED COMPONENTS
   system
   thread
   )
+
+#find_package(Boost REQUIRED)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 
