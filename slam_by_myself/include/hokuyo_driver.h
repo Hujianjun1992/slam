@@ -104,6 +104,7 @@ class HokuyoDriver
   void getLaserData();
   void DrawLaserData();
   void LaserDataCovert();
+  bool firstCall;
 
  private:
   typedef boost::function<void()> UseScanFunction;
@@ -142,15 +143,17 @@ class HokuyoDriver
   vector<float>SepLaserRho;
   vector<float>SepLaserTheta;
 
-  
+
   vector<int>LaserX;
   vector<int>LaserY;
 
   vector<int>BreakIndex;
   vector<LinePara>FittedLine;
 
+  vector<iPoint> Corners;
+
   line_extraction::LineExtractionHokuyo lineextractionhokuyo;
-  
+
   State state_;
 
   HokuyoConfig config_;
@@ -158,9 +161,11 @@ class HokuyoDriver
   void CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<float>& LaserTheta);
   int BreakLadarRho();
   int PolyContourFit(float* X, float* Y, int n, float Eps);
-  int BreakPolyLine();
+  int BreakPolyLine( vector<float>& BreakedLaserRho, vector<float>& BreakedLaserTheta, vector<float>& SepLaserRho, vector<float>& SepLaserTheta );
   void FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta);
   //  void DrawLaserLine(vector<LinePara>& FittedLine, Mat* LaserImage);
+  int FindCorners( vector<int>& CornerIndex, float* X, float* Y, int start, int Cnt, float Eps );
+  void DrawLaserCorners( cv::Mat* image, vector<iPoint>& Corners );
   Mat DrawLaserLine(vector<line_extraction::Line>& lines);
   void MedFilter(vector<float>& LaserRho, vector<float>& LaserTheta);
   Mat HoughLines(Mat* srcImage);

@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/clusering.h
+iostream
+-
+cmath
+-
+vector
+-
+stdlib.h
+-
+ctime
+-
+
+/home/hxb/github/slam/slam_by_myself/src/clusering.cpp
+clusering.h
+/home/hxb/github/slam/slam_by_myself/src/clusering.h
+

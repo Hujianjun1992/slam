@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libline_extraction.a  CMakeFiles/line_extraction.dir/line_extraction.cpp.o
+/usr/bin/ranlib ../../lib/libline_extraction.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/libhokuyo.a  CMakeFiles/hokuyo.dir/hokuyo.cpp.o
+/usr/bin/ranlib ../../lib/libhokuyo.a

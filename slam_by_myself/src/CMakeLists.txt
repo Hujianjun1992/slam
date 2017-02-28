@@ -3,7 +3,7 @@ find_package(OpenCV REQUIRED)
 #list( APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules )
 find_package(Eigen3 REQUIRED)
 include_directories( include ${Eigen3_INCLUDE_DIR} ${OpenCV_INCLUDE_DIR})
-find_package(Boost 1.62 REQUIRED COMPONENTS
+find_package(Boost  REQUIRED COMPONENTS
   system
   thread
   )
@@ -25,7 +25,7 @@ target_link_libraries(line_extraction_hokuyo line line_extraction hokuyo)
 add_library(clusering clusering.cpp)
 add_library(WeightedFit WeightedFit.cpp)
 add_library(hokuyo hokuyo.cpp)
-add_library(hokuyo_driver hokuyo_driver.cpp)
+add_library(hokuyo_driver hokuyo_driver1.cpp)
 target_link_libraries(hokuyo_driver hokuyo WeightedFit  clusering line_extraction_hokuyo ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 
