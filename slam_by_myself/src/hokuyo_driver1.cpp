@@ -4,6 +4,7 @@
 //#define DEBUG
 
 std::vector<int> CornerTemp;
+std::vector<iPoint> landmarkPoints;
 
 HokuyoDriver::HokuyoDriver(HokuyoConfig& config):config_(config)
 {
@@ -270,13 +271,13 @@ HokuyoDriver::getLaserData()
     firstCall = true;
    }
     else {
-        ScanCount ++;
-        *ff << "ScanCount " << ScanCount << endl;
+        //ScanCount ++;
+        *ff << "ScanCount " << ScanCount ++ << endl;
         *ff << "self_time_stamp " << scan_.self_time_stamp << endl;
         *ff << "L " ;
         for ( int i = 0; i < scan_.ranges.size(); i ++ ) {
-            if ( scan_.ranges[i] > 40.0  ) {
-                scan_.ranges[i] = 40.0;
+            if ( scan_.ranges[i] > 25.0  ) {
+                scan_.ranges[i] = 25;
         }
             if ( scan_.ranges[i] < 0.15) {
                 scan_.ranges[i] = 0.15;
@@ -284,10 +285,26 @@ HokuyoDriver::getLaserData()
             *ff << scan_.ranges[i] << " ";
         }
         *ff << endl;
-
+        *ff << "Corners " << landmarkPoints.size() << endl;
+    for ( auto iter = landmarkPoints.begin(); iter != landmarkPoints.end(); iter ++ ){
+            *ff << iter->x << "\t" << iter->y << endl;
     }
 
-    cout << " ScanCount    " << ScanCount << endl;
+
+    cout << RED"scan size----------------->" RESET << scan_.ranges.size() << endl;
+    cout << RED"scan_.config.min_angle---->" RESET << scan_.config.min_angle << endl;
+    cout << RED"scan_.config.max_angle---->" RESET << scan_.config.max_angle << endl;
+    cout << RED"scan_.config.ang_increment---->" RESET << scan_.config.ang_increment << endl;
+    cout << RED"scan_.config.time_increment---->" RESET << scan_.config.time_increment << endl;
+    cout << RED"scan_.config.scan_time---->" RESET << scan_.config.scan_time << endl;
+    cout << RED"scan_.config.min_range---->" RESET << scan_.config.min_range << endl;
+    cout << RED"scan_.config.max_range---->" RESET << scan_.config.max_range << endl;
+    cout << RED"scan_.config.range_res---->" RESET << scan_.config.range_res << endl;
+
+
+}
+
+    //cout << " ScanCount    " << ScanCount << endl;
 
 /////////////////////////////////////////////
 ////////////////////////////////////////////////
@@ -307,7 +324,7 @@ HokuyoDriver::getLaserData()
   LaserDataCovert();
   MedFilter(LaserRho, LaserTheta);
   BreakLadarRho();
-  cout << "line cnt ----->" << BreakPolyLine(BreakedLaserRho, BreakedLaserTheta, SepLaserRho, SepLaserTheta) << endl;
+  //cout << "line cnt ----->" << BreakPolyLine(BreakedLaserRho, BreakedLaserTheta, SepLaserRho, SepLaserTheta) << endl;
 
   CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
 
@@ -367,14 +384,6 @@ HokuyoDriver::DrawLaserData()
 
 //   LaserDataCovert();
 //   MedFilter(LaserRho, LaserTheta);
-//   // cout << RED"scan_.config.min_angle---->" RESET << scan_.config.min_angle << endl;
-//   // cout << RED"scan_.config.max_angle---->" RESET << scan_.config.max_angle << endl;
-//   // cout << RED"scan_.config.ang_increment---->" RESET << scan_.config.ang_increment << endl;
-//   // cout << RED"scan_.config.time_increment---->" RESET << scan_.config.time_increment << endl;
-//   // cout << RED"scan_.config.scan_time---->" RESET << scan_.config.scan_time << endl;
-//   // cout << RED"scan_.config.min_range---->" RESET << scan_.config.min_range << endl;
-//   // cout << RED"scan_.config.max_range---->" RESET << scan_.config.max_range << endl;
-//   // cout << RED"scan_.config.range_res---->" RESET << scan_.config.range_res << endl;
 
 //   //  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
 
@@ -480,7 +489,7 @@ HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<
     }
   }
 /////////////////////////////////////////////////////////////
-    float x1, y1;
+/*    float x1, y1;
     int dx1 = LaserImage->cols/2;
     int dy1 = LaserImage->rows/2;
 
@@ -493,7 +502,7 @@ HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<
         //cv::circle( *image, cv::Point(x,y), 3, CV_RGB(0, 255, 255), 3, 8, 0 );
         cv::circle( *LaserImage, cv::Point(x1,y1), 3, CV_RGB(0, 255, 255) );
     }
-
+*/
     ///////////////////////////////////////////////////////////////////
 
 
@@ -510,7 +519,7 @@ HokuyoDriver::BreakLadarRho()
   float theta = LaserTheta.at(0);
 
   float dis = 0.0;
-  float Dmax = .8;
+  float Dmax = 1.0;
 
   BreakedLaserRho.clear();
   BreakedLaserTheta.clear();
@@ -714,7 +723,7 @@ HokuyoDriver::FindCorners( vector<int>& CornerIndex, float* X, float* Y, int sta
     int N2 = 0;
 
     N = PolyContourFit( X, Y, Cnt, Eps );
-    std::cout << "NNNN------------>" << N << std::endl;
+    //std::cout << "NNNN------------>" << N << std::endl;
 
     if ( N == 0 ) {
         return 0;
@@ -829,6 +838,9 @@ HokuyoDriver::DrawLaserLine(vector<line_extraction::Line>& lines)
 
   circle(image_tmp, Point(dx,dy), 5, CV_RGB(0, 0, 255));
 
+  int R = 0;
+  int G = 0;
+  int B = 0;
   //  cout << "hujianjun" << lines.size() << endl;
   for (uint i = 0; i < lines.size(); ++i) {
     start_tmp = lines[i].getStart();
@@ -837,9 +849,88 @@ HokuyoDriver::DrawLaserLine(vector<line_extraction::Line>& lines)
     l[1] = start_tmp[1] * len_shift + dy;
     l[2] = end_tmp[0] * len_shift + dx;
     l[3] = end_tmp[1] * len_shift + dy;
+
+
+
+    if(i%3 == 0 ){
+        R = 255;
+        G = 0;
+        B = 0;
+    }
+
+    if(i%3 == 1 ){
+        R = 0;
+        G = 255;
+        B = 0;
+    }
+
+    if(i%3 == 2 ){
+        R = 0;
+        G = 0;
+        B = 255;
+    }
     //    cout << "hujianjun------>" <<  l[0] << "\t" << l[1] << "\t" << l[2] << "\t" << l[3] << endl;
-    line ( image_tmp, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(0, 0, 255), 1, CV_AA);
+    line ( image_tmp, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(B, G, R), 1, CV_AA);
   }
+
+  boost::array<double, 2> L1_startPoint;
+  boost::array<double, 2> L1_endPoint;
+  boost::array<double, 2> L2_startPoint;
+  boost::array<double, 2> L2_endPoint;
+
+  double ax1=0, ay1=0, ax2=0, ay2=0, bx1=0, by1=0, bx2=0, by2=0;
+  //double d = 0;
+  double a1 = 0, b1 = 0, a2 = 0, b2 = 0, c1 = 0, d1 = 0, c2 = 0, d2 = 0;
+  int _findCorners = 0;
+  landmarkPoints.clear();
+
+  for (uint i = 0; i < lines.size() - 1; ++i) {
+    L1_startPoint = lines[i].getStart();
+    L1_endPoint = lines[i].getEnd();
+    L2_startPoint = lines[i+1].getStart();
+    L2_endPoint = lines[i+1].getEnd();
+
+    a1 = L1_startPoint[0];
+    b1 = L1_startPoint[1];
+
+    a2 = L1_endPoint[0];
+    b2 = L1_endPoint[1];
+
+    c1 = L2_startPoint[0];
+    d1 = L2_startPoint[1];
+
+    c2 = L2_endPoint[0];
+    d2 = L2_endPoint[1];
+    double k1 = 0.0;
+    double k2 = 0.0;
+    //d = (ay2-ay1) * (bx2-bx1) - (by2-by1) * (ax2-ax1);
+
+                    // y2 - y1
+    if ( abs( ( L1_endPoint[1] - L1_startPoint[1] ) * ( L2_endPoint[1] - L2_startPoint[1] ) + ( L1_endPoint[0] - L1_startPoint[0] ) * ( L2_endPoint[0] - L2_startPoint[0] ) ) < 1.0 )
+        if( abs( ( L1_endPoint[1] - L2_startPoint[1] ) * ( L1_endPoint[1] - L2_startPoint[1] ) + ( L1_endPoint[0] - L2_startPoint[0] ) * ( L1_endPoint[0] - L2_startPoint[0] ) ) < 0.7 )
+    {
+        k1 = (b2 -b1)/(a2 -a1);
+        k2 = (d2 -d1)/(c2 -c1);
+
+        cout << "k1 = " << k1 << endl;
+        cout << "k2 = " << k2 << endl;
+        landmarkPoints.push_back(iPoint());
+        landmarkPoints[_findCorners].x =((a2-a1)*(c2-c1)*(d2-b2)+(b2-b1)*(c2-c1)*a2-(d2-d1)*(a2-a1)*c2)/((b2-b1)*(c2-c1)-(d2-d1)*(a2-a1));
+        landmarkPoints[_findCorners].y =(b2-b1)/(a2-a1)*(landmarkPoints[_findCorners].x-a2)+b2;
+        _findCorners++;
+    }
+
+
+  }
+
+  for ( auto iter = landmarkPoints.begin(); iter != landmarkPoints.end(); iter ++ ){
+
+      std::cout << "                " << iter->x * len_shift + dx  << "         "  << iter->y * len_shift + dy << std::endl;
+      cv::circle( image_tmp, cv::Point((iter->x) * len_shift + dx, (iter->y) * len_shift + dy), 3, CV_RGB(0, 255, 255) );
+  }
+
+
+  std::cout << "find Corners --->" << _findCorners << std::endl;
 
   return image_tmp;
 }

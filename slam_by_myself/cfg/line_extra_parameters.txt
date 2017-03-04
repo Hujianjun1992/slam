@@ -18,8 +18,8 @@ min_line_length=0.7
 #该距离内的点 过滤掉 0.5
 min_range=0.5
 #最小的点到直线的距离 超过这个距离认为折线0.04
-min_split_dist=0.1
+min_split_dist=0.3
 #离散点 超过这个值就是离散点 0.06
-outlier_dist=0.06
+outlier_dist=0.1
 #组成线段的最小点数 10
 min_line_points=30
