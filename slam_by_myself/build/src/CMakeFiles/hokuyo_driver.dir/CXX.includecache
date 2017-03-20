@@ -126,7 +126,7 @@ vector
 cmath
 -
 
-/home/hxb/github/slam/slam_by_myself/src/hokuyo_driver1.cpp
+/home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.cpp
 hokuyo_driver.h
 /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.h
 myself.h

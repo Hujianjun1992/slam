@@ -171,13 +171,13 @@ clean: src/CMakeFiles/clusering.dir/clean
 # Target rules for target src/CMakeFiles/hokuyo_driver.dir
 
 # All Build rule for target.
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/utilities.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line.dir/all
-src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/utilities.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/WeightedFit.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line_extraction.dir/all
+src/CMakeFiles/hokuyo_driver.dir/all: src/CMakeFiles/line.dir/all
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/depend
 	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=7,8 "Built target hokuyo_driver"
@@ -251,10 +251,10 @@ clean: src/CMakeFiles/hokuyo.dir/clean
 # Target rules for target src/CMakeFiles/line_extraction_hokuyo.dir
 
 # All Build rule for target.
+src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/utilities.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/line_extraction.dir/all
 src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/line.dir/all
-src/CMakeFiles/line_extraction_hokuyo.dir/all: src/CMakeFiles/hokuyo.dir/all
 	$(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/depend
 	$(MAKE) -f src/CMakeFiles/line_extraction_hokuyo.dir/build.make src/CMakeFiles/line_extraction_hokuyo.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=15,16 "Built target line_extraction_hokuyo"
@@ -403,14 +403,14 @@ clean: src/CMakeFiles/line.dir/clean
 # Target rules for target src/CMakeFiles/laser_data_show.dir
 
 # All Build rule for target.
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/utilities.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line.dir/all
-src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo_driver.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/hokuyo.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction_hokuyo.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/utilities.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/clusering.dir/all
 src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/WeightedFit.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line_extraction.dir/all
+src/CMakeFiles/laser_data_show.dir/all: src/CMakeFiles/line.dir/all
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/depend
 	$(MAKE) -f src/CMakeFiles/laser_data_show.dir/build.make src/CMakeFiles/laser_data_show.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=9,10 "Built target laser_data_show"

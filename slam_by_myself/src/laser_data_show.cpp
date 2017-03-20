@@ -3,9 +3,9 @@
 using namespace cv;
 
 boost::mutex io_mutex;
-Mat image_orgi(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(0, 255, 0));
-Mat image_line(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(0, 255, 0));
-Mat image_test(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(0, 255, 0));
+Mat image_orgi(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(255, 255, 255));
+Mat image_line(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(255, 255, 255));
+Mat image_test(IMAGE_WIDTH, IMAGE_HEIGHT, CV_8UC3, Scalar(255, 255, 255));
 
 int main(int argc, char *argv[])
 {

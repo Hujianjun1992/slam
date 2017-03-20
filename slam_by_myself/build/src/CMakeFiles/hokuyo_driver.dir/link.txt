@@ -1,2 +1,2 @@
-/usr/bin/ar qc ../../lib/libhokuyo_driver.a  CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o
+/usr/bin/ar qc ../../lib/libhokuyo_driver.a  CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
 /usr/bin/ranlib ../../lib/libhokuyo_driver.a

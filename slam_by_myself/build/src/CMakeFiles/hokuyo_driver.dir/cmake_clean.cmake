@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o"
+  "CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o"
   "../../lib/libhokuyo_driver.pdb"
   "../../lib/libhokuyo_driver.a"
 )

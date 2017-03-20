@@ -3,6 +3,9 @@
 
 //#define DEBUG
 
+std::vector<int> CornerTemp;
+std::vector<iPoint> landmarkPoints;
+
 HokuyoDriver::HokuyoDriver(HokuyoConfig& config):config_(config)
 {
 }
@@ -235,8 +238,8 @@ HokuyoDriver::scanThread()
       first_scan_ = false;
       cout << "Streaming data." << endl;
     }
-    useScan_ = boost::bind(&HokuyoDriver::DrawLaserData, this);
-    //    useScan_ = boost::bind(&HokuyoDriver::getLaserData, this);
+    //useScan_ = boost::bind(&HokuyoDriver::DrawLaserData, this);
+        useScan_ = boost::bind(&HokuyoDriver::getLaserData, this);
     useScan_();
 
   }
@@ -252,10 +255,85 @@ HokuyoDriver::scanThread()
 void
 HokuyoDriver::getLaserData()
 {
-  for (int i = 0; i < scan_.ranges.size(); ++i) {
-    cout << "scan.ranged[i] :" << scan_.ranges[i] << endl;
-  }
-  cout << "hujianjun" << endl;
+    static int ScanCount = 0;
+    static std::ofstream *ff = new std::ofstream( "./data/LaserData.txt", std::ios::out );
+    if ( firstCall == false )
+    {
+    *ff << "LaserConfing" << endl;
+    *ff << "min_angle " << scan_.config.min_angle << endl;
+    *ff << "max_angle " << scan_.config.max_angle << endl;
+    *ff << "ang_increment " << scan_.config.ang_increment << endl;
+    *ff << "time_increment " << scan_.config.time_increment << endl;
+    *ff << "scan_time " << scan_.config.scan_time << endl;
+    *ff << "min_range " << scan_.config.min_range << endl;
+    *ff << "max_range " << scan_.config.max_range << endl;
+    *ff << "range_res " << scan_.config.range_res << endl;
+    firstCall = true;
+   }
+    else {
+        //ScanCount ++;
+        *ff << "ScanCount " << ScanCount ++ << endl;
+        *ff << "self_time_stamp " << scan_.self_time_stamp << endl;
+        *ff << "L " ;
+        for ( int i = 0; i < scan_.ranges.size(); i ++ ) {
+            if ( scan_.ranges[i] > 25.0  ) {
+                scan_.ranges[i] = 25;
+        }
+            if ( scan_.ranges[i] < 0.15) {
+                scan_.ranges[i] = 0.15;
+            }
+            *ff << scan_.ranges[i] << " ";
+        }
+        *ff << endl;
+        *ff << "Corners " << landmarkPoints.size() << endl;
+    for ( auto iter = landmarkPoints.begin(); iter != landmarkPoints.end(); iter ++ ){
+            *ff << iter->x << "\t" << iter->y << endl;
+    }
+
+
+    cout << RED"scan size----------------->" RESET << scan_.ranges.size() << endl;
+    cout << RED"scan_.config.min_angle---->" RESET << scan_.config.min_angle << endl;
+    cout << RED"scan_.config.max_angle---->" RESET << scan_.config.max_angle << endl;
+    cout << RED"scan_.config.ang_increment---->" RESET << scan_.config.ang_increment << endl;
+    cout << RED"scan_.config.time_increment---->" RESET << scan_.config.time_increment << endl;
+    cout << RED"scan_.config.scan_time---->" RESET << scan_.config.scan_time << endl;
+    cout << RED"scan_.config.min_range---->" RESET << scan_.config.min_range << endl;
+    cout << RED"scan_.config.max_range---->" RESET << scan_.config.max_range << endl;
+    cout << RED"scan_.config.range_res---->" RESET << scan_.config.range_res << endl;
+
+
+}
+
+    //cout << " ScanCount    " << ScanCount << endl;
+
+/////////////////////////////////////////////
+////////////////////////////////////////////////
+
+  Mat image_tmp_orgi(800, 800, CV_8UC3, Scalar(20, 20, 20));
+  Mat image_tmp_line(800, 800, CV_8UC3, Scalar(20, 20, 20));
+  Mat image_tmp_test(800, 800, CV_8UC3, Scalar(20, 20, 20));
+
+  vector<line_extraction::Line> line_tmp;
+  vector<float> SepLaserRho;
+  vector<float> SepLaserTheta;
+  line_tmp = lineextractionhokuyo.laserScanCallback(scan_);
+  cout << BLUE"\t\t line num------------>" << RED << line_tmp.size() << RESET << endl;
+
+  image_tmp_line = DrawLaserLine(line_tmp);
+
+  LaserDataCovert();
+  MedFilter(LaserRho, LaserTheta);
+  BreakLadarRho();
+  //cout << "line cnt ----->" << BreakPolyLine(BreakedLaserRho, BreakedLaserTheta, SepLaserRho, SepLaserTheta) << endl;
+
+  CreateLaserImage(&image_tmp_orgi, BreakedLaserRho, BreakedLaserTheta);
+
+  io_mutex.lock();
+  image_tmp_orgi.copyTo(image_orgi);
+  image_tmp_test.copyTo(image_test);
+  image_tmp_line.copyTo(image_line);
+  io_mutex.unlock();
+////////////////////////////////////////:
 }
 
 void
@@ -306,14 +384,6 @@ HokuyoDriver::DrawLaserData()
 
 //   LaserDataCovert();
 //   MedFilter(LaserRho, LaserTheta);
-//   // cout << RED"scan_.config.min_angle---->" RESET << scan_.config.min_angle << endl;
-//   // cout << RED"scan_.config.max_angle---->" RESET << scan_.config.max_angle << endl;
-//   // cout << RED"scan_.config.ang_increment---->" RESET << scan_.config.ang_increment << endl;
-//   // cout << RED"scan_.config.time_increment---->" RESET << scan_.config.time_increment << endl;
-//   // cout << RED"scan_.config.scan_time---->" RESET << scan_.config.scan_time << endl;
-//   // cout << RED"scan_.config.min_range---->" RESET << scan_.config.min_range << endl;
-//   // cout << RED"scan_.config.max_range---->" RESET << scan_.config.max_range << endl;
-//   // cout << RED"scan_.config.range_res---->" RESET << scan_.config.range_res << endl;
 
 //   //  cout << RED"breakCnt :" << RESET << BreakLadarRho() << endl ;
 
@@ -361,7 +431,6 @@ HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<
   int dx = LaserImage->cols/2;
   int dy = LaserImage->rows/2;
 
-  circle(*LaserImage, Point(dx,dy), 5, CV_RGB(0, 0, 255));
 
   int x,y;
   float theta,rho;
@@ -385,6 +454,17 @@ HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<
         G = (colorRGB%65536)/256;
         B = colorRGB%256;
         colorIndex = (colorIndex + 1)%10;
+
+        //for ( int i = 0; i < CornerTemp.size(); i ++ ) {
+
+            //x = (int)(LaserRho[ CornerTemp[i] ]*cos(LaserTheta[ CornerTemp[i] ]+theta_offset)*len_shift) + dx;
+            //y = (int)(LaserRho[ CornerTemp[i] ]*sin(LaserTheta[ CornerTemp[i] ]+theta_offset)*len_shift) + dy;
+
+        //}
+        x = (int)(LaserRho[i + 1]*cos(LaserTheta[i + 1]+theta_offset)*len_shift) + dx;
+        y = (int)(LaserRho[i + 1]*sin(LaserTheta[i + 1]+theta_offset)*len_shift) + dy;
+
+        cv::circle( *LaserImage, cv::Point(x, y), 5, CV_RGB(0, 0, 255), -1, 8);
       }
     else
       {
@@ -394,17 +474,56 @@ HokuyoDriver::CreateLaserImage(Mat* LaserImage, vector<float>& LaserRho, vector<
     x = (int)(rho*cos(theta+theta_offset)*len_shift) + dx;
     y = (int)(rho*sin(theta+theta_offset)*len_shift) + dy;
 
+    //y = (int)(rho*cos(theta+theta_offset)*len_shift) + dx;
+    //x = (int)(-rho*sin(theta+theta_offset)*len_shift) + dy;
+
     if (x >= 0 && x < LaserImage->cols && y >= 0 && y < LaserImage->rows) {
       pPixel = (unsigned char*)LaserImage->data + y*LaserImage->step + 3*x;
       pPixel[0] = B;
       pPixel[1] = G;
       pPixel[2] = R;
+      //pPixel[0] = 0;
+      //pPixel[1] = 0;
+      //pPixel[2] = 255;
+
+    //x = (int)(rho*cos(theta+theta_offset)*49) + dx;
+    //y = (int)(rho*sin(theta+theta_offset)*49) + dy;
+
+          //cv::line ( *LaserImage, Point(dx, dy),Point(x,y),Scalar(255, 0, 0), 1, CV_AA);
+
     }
     else{
 
     }
-  }
 
+  }
+/////////////////////////////////////////////////////////////
+/*    float x1, y1;
+    int dx1 = LaserImage->cols/2;
+    int dy1 = LaserImage->rows/2;
+
+    std::cout << "Corners.size " << Corners.size() << std::endl;
+    for ( int i = 0; i < static_cast<int> (Corners.size()); i ++ ) {
+        x1 = Corners[i].x;
+        y1 = Corners[i].y;
+        x1 = x1 * 50 + dx1;
+        y1 = y1 * 50 + dy1;
+        //cv::circle( *image, cv::Point(x,y), 3, CV_RGB(0, 255, 255), 3, 8, 0 );
+        cv::circle( *LaserImage, cv::Point(x1,y1), 3, CV_RGB(0, 255, 255) );
+    }
+*/
+    ///////////////////////////////////////////////////////////////////
+
+
+  for ( auto iter = landmarkPoints.begin(); iter != landmarkPoints.end(); iter ++ ){
+      //std::cout << "                " << iter->x * len_shift + dx  << "         "  << iter->y * len_shift + dy << std::endl;
+      cv::circle( *LaserImage, cv::Point((iter->x) * len_shift + dx, (iter->y) * len_shift + dy), 8, CV_RGB(0, 255, 0), -1, 8);
+  }
+  //for (int i = 0; i < landmarkPoints.size(); i ++) {
+
+  //}
+
+  circle(*LaserImage, Point(dx,dy), 10, CV_RGB(255, 0, 0), -1, 8);
 }
 
 int
@@ -417,7 +536,7 @@ HokuyoDriver::BreakLadarRho()
   float theta = LaserTheta.at(0);
 
   float dis = 0.0;
-  float Dmax = .4;
+  float Dmax = 1.0;
 
   BreakedLaserRho.clear();
   BreakedLaserTheta.clear();
@@ -455,10 +574,11 @@ HokuyoDriver::BreakLadarRho()
 
 int HokuyoDriver::PolyContourFit(float* X, float* Y, int n, float Eps)
 {
+    int cnt = 3;
 
-  float dis = sqrt((float)(((X[0]-X[n-1])*(X[0]-X[n-1])) + ((Y[0]-Y[n-1])*(Y[0]-Y[n-1]))));
-  float cosTheta = (X[n-1] - X[0])/dis;
-  float sinTheta = -(Y[n-1] - Y[0])/dis;
+  float dis = sqrt((float)(((X[0 + cnt]-X[n-1 - cnt])*(X[0 + cnt]-X[n-1 - cnt])) + ((Y[0 + cnt]-Y[n-1 - cnt])*(Y[0 + cnt]-Y[n-1 - cnt]))));
+  float cosTheta = (X[n-1 - cnt] - X[0 + cnt])/dis;
+  float sinTheta = -(Y[n-1 - cnt] - Y[0 + cnt])/dis;
   float MaxDis = 0;
   int i ;
   int MaxDisInd = -1;
@@ -480,12 +600,71 @@ int HokuyoDriver::PolyContourFit(float* X, float* Y, int n, float Eps)
 }
 
 int
-HokuyoDriver::BreakPolyLine()
+HokuyoDriver::BreakPolyLine(vector<float>& BreakedLaserRho, vector<float>& BreakedLaserTheta, vector<float>& SepLaserRho, vector<float>& SepLaserTheta)
 {
   //  int data_num = scan_.ranges.size();
   //  cout << "data_num" << data_num << endl;
   //  cout << "scan_.ranges" << scan_.ranges.size() << endl;
-  int rho = 0;
+///////////////////  int rho = 0;
+///////////////////  float theta = 0.0;
+///////////////////  float X[1200] = {0};
+///////////////////  float Y[1200] = {0};
+///////////////////  float rhoCopy[1200] = {0};
+///////////////////  float thetaCopy[1200] = {0};
+///////////////////  int pointCnt = 0;
+///////////////////  int lineCnt = 0;
+///////////////////  int N = 0;
+///////////////////  SepLaserRho.clear();
+///////////////////  SepLaserTheta.clear();
+///////////////////
+///////////////////  for (int i = 0; i < BreakedLaserRho.size(); ++i) {
+///////////////////
+///////////////////    rho = BreakedLaserRho.at(i);
+///////////////////    theta = BreakedLaserTheta.at(i);
+///////////////////
+///////////////////    if (rho < 0) {
+///////////////////      if (pointCnt > 250) {
+///////////////////        N = PolyContourFit(X, Y, pointCnt, 0.3);
+///////////////////
+///////////////////        if (N == 0) {
+///////////////////          lineCnt ++;
+///////////////////
+///////////////////          for (int j = 0; j < pointCnt; ++j) {
+///////////////////            SepLaserRho.push_back(rhoCopy[j]);
+///////////////////            SepLaserTheta.push_back(thetaCopy[j]);
+///////////////////          }
+///////////////////          SepLaserRho.push_back(-1);
+///////////////////          SepLaserTheta.push_back(-1);
+///////////////////        }
+///////////////////        else if (N > 0) {
+///////////////////          lineCnt +=2;
+///////////////////
+///////////////////          for (int j = 0 ; j < N; ++j) {
+///////////////////            SepLaserRho.push_back(rhoCopy[j]);
+///////////////////            SepLaserTheta.push_back(thetaCopy[j]);
+///////////////////          }
+///////////////////          SepLaserRho.push_back(-1);
+///////////////////          SepLaserTheta.push_back(1000.0);
+///////////////////
+///////////////////          for (int j = N; j < pointCnt; ++j) {
+///////////////////            SepLaserRho.push_back(rhoCopy[j]);
+///////////////////            SepLaserTheta.push_back(thetaCopy[j]);
+///////////////////          }
+///////////////////          SepLaserRho.push_back(-1);
+///////////////////          SepLaserTheta.push_back(1000.0);
+///////////////////        }
+///////////////////      }
+///////////////////      pointCnt = 0;
+///////////////////      continue;
+///////////////////    }
+///////////////////    X[pointCnt] = rho*cos(theta);
+///////////////////    Y[pointCnt] = rho*sin(theta);
+///////////////////    rhoCopy[pointCnt] = rho;
+///////////////////    thetaCopy[pointCnt] = theta;
+///////////////////    pointCnt ++;
+///////////////////  }
+///////////////////  return lineCnt;
+int rho = 0;
   float theta = 0.0;
   float X[1200] = {0};
   float Y[1200] = {0};
@@ -497,55 +676,123 @@ HokuyoDriver::BreakPolyLine()
   SepLaserRho.clear();
   SepLaserTheta.clear();
 
-  for (int i = 0; i < BreakedLaserRho.size(); ++i) {
+  vector<int> CornerIndex;
+  int CornerCnt = 0;
+  int tempIndex = 0;
 
-    rho = BreakedLaserRho.at(i);
-    theta = BreakedLaserTheta.at(i);
+    for ( int i = 0; i < BreakedLaserRho.size() ; i ++ ) {
 
-    if (rho < 0) {
-      if (pointCnt > 250) {
-        N = PolyContourFit(X, Y, pointCnt, 0.3);
+        rho = BreakedLaserRho[i];
+        theta = BreakedLaserTheta[i];
 
-        if (N == 0) {
-          lineCnt ++;
+        if ( rho < 0 ) {
+            if ( pointCnt > 200 ) {
+                CornerIndex.clear();
+                CornerCnt = FindCorners( CornerIndex, X, Y, 0, pointCnt, 0.5);
 
-          for (int j = 0; j < pointCnt; ++j) {
-            SepLaserRho.push_back(rhoCopy[j]);
-            SepLaserTheta.push_back(thetaCopy[j]);
-          }
-          SepLaserRho.push_back(-1);
-          SepLaserTheta.push_back(-1);
+                if ( CornerIndex.size() == 0 ) {
+                    for ( int k = 0; k < pointCnt; k ++ ) {
+                        SepLaserRho.push_back( rhoCopy[k] );
+                        SepLaserTheta.push_back( thetaCopy[k] );
+                    }
+                    SepLaserRho.push_back( -1 );
+                    SepLaserTheta.push_back( 1000.0 );
+                    lineCnt ++;
+                } else {
+                    tempIndex = 0;
+                    for ( int k = 0; k < pointCnt; k ++ ) {
+                        SepLaserRho.push_back( rhoCopy[k] );
+                        SepLaserTheta.push_back( thetaCopy[k] );
+                        if ( k == CornerIndex[tempIndex] ) {
+                            SepLaserRho.push_back( -1 );
+                            SepLaserTheta.push_back( 1000.0 );
+                            lineCnt ++;
+                            if ( tempIndex < static_cast<int>( CornerIndex.size() ) - 1 ) {
+                                tempIndex ++;
+                            }
+                        }
+                    }
+
+                    SepLaserRho.push_back( -1 );
+                    SepLaserTheta.push_back( 1000.0 );
+                    lineCnt ++;
+                }
+            }
+            //std::cout << "danteng!" << std::endl;
+            pointCnt = 0;
+            continue ;
         }
-        else if (N > 0) {
-          lineCnt +=2;
-
-          for (int j = 0 ; j < N; ++j) {
-            SepLaserRho.push_back(rhoCopy[j]);
-            SepLaserTheta.push_back(thetaCopy[j]);
-          }
-          SepLaserRho.push_back(-1);
-          SepLaserTheta.push_back(1000.0);
-
-          for (int j = N; j < pointCnt; ++j) {
-            SepLaserRho.push_back(rhoCopy[j]);
-            SepLaserTheta.push_back(thetaCopy[j]);
-          }
-          SepLaserRho.push_back(-1);
-          SepLaserTheta.push_back(1000.0);
-        }
-      }
-      pointCnt = 0;
-      continue;
+        X[ pointCnt ] = static_cast<double>( rho * cos(theta) );
+        Y[ pointCnt ] = static_cast<double>( rho * sin(theta) );
+        rhoCopy[ pointCnt ] = rho;
+        thetaCopy[ pointCnt ] = theta;
+        pointCnt++;
     }
-    X[pointCnt] = rho*cos(theta);
-    Y[pointCnt] = rho*sin(theta);
-    rhoCopy[pointCnt] = rho;
-    thetaCopy[pointCnt] = theta;
-    pointCnt ++;
-  }
-  return lineCnt;
+return lineCnt;
 }
 
+int
+HokuyoDriver::FindCorners( vector<int>& CornerIndex, float* X, float* Y, int start, int Cnt, float Eps ) {
+
+    Corners.clear();
+    int N = 0;
+    int N1 = 0;
+    int N2 = 0;
+
+    N = PolyContourFit( X, Y, Cnt, Eps );
+    //std::cout << "NNNN------------>" << N << std::endl;
+
+    if ( N == 0 ) {
+        return 0;
+    } else if ( N > 0 && N < Cnt ) {
+        CornerTemp.push_back( start + N );
+        CornerIndex.push_back( start + N );
+        if ( N > 100 ) {
+            N1 = FindCorners( CornerIndex, X, Y, start, N, Eps );
+        }
+        if ( Cnt - N > 100 ) {
+            N2 = FindCorners( CornerIndex, X + N, Y + N, start + N, Cnt - N, Eps );
+        }
+    }
+    int temp;
+    for ( int i = 0; i < static_cast<int>( CornerIndex.size() ); i ++ ) {
+        for ( int j = i + 1; j < static_cast<int>( CornerIndex.size() ); j ++ ) {
+            if ( CornerIndex[i] > CornerIndex[j] ) {
+                temp = CornerIndex[i];
+                CornerIndex[i] = CornerIndex[j];
+                CornerIndex[j] = temp;
+            }
+        }
+    }
+    iPoint CornerPoint;
+
+    for ( int i = 0; i < static_cast<int>( CornerIndex.size() ); i ++ ) {
+        CornerPoint.x = X[ CornerIndex[i] ];
+        CornerPoint.y = Y[ CornerIndex[i] ];
+        Corners.push_back( CornerPoint );
+    }
+
+    return CornerIndex.size();
+
+}
+
+void
+HokuyoDriver::DrawLaserCorners( cv::Mat* image, vector<iPoint>& Corners ) {
+
+    float x, y;
+    int dx = image->cols/2;
+    int dy = image->rows/2;
+
+    std::cout << "Corners.size " << Corners.size() << std::endl;
+    for ( int i = 0; i < static_cast<int> (Corners.size()); i ++ ) {
+        x = Corners[i].x;
+        y = Corners[i].y;
+        x = x * 50 + dx;
+        y = y * 50 + dy;
+        //cv::circle( *image, cv::Point(x,y), 3, CV_RGB(0, 255, 255), 3, 8, 0 );
+        cv::circle( *image, cv::Point(x,y), 3, CV_RGB(0, 255, 255) );
+    }
+}
 void
 HokuyoDriver::FitLine(vector<LinePara>& FittedLine, vector<float>& LaserRho, vector<float>& LaserTheta)
 {
@@ -608,6 +855,9 @@ HokuyoDriver::DrawLaserLine(vector<line_extraction::Line>& lines)
 
   circle(image_tmp, Point(dx,dy), 5, CV_RGB(0, 0, 255));
 
+  int R = 0;
+  int G = 0;
+  int B = 0;
   //  cout << "hujianjun" << lines.size() << endl;
   for (uint i = 0; i < lines.size(); ++i) {
     start_tmp = lines[i].getStart();
@@ -616,9 +866,87 @@ HokuyoDriver::DrawLaserLine(vector<line_extraction::Line>& lines)
     l[1] = start_tmp[1] * len_shift + dy;
     l[2] = end_tmp[0] * len_shift + dx;
     l[3] = end_tmp[1] * len_shift + dy;
+
+
+
+    if(i%3 == 0 ){
+        R = 255;
+        G = 0;
+        B = 0;
+    }
+
+    if(i%3 == 1 ){
+        R = 0;
+        G = 255;
+        B = 0;
+    }
+
+    if(i%3 == 2 ){
+        R = 0;
+        G = 0;
+        B = 255;
+    }
     //    cout << "hujianjun------>" <<  l[0] << "\t" << l[1] << "\t" << l[2] << "\t" << l[3] << endl;
-    line ( image_tmp, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(0, 0, 255), 1, CV_AA);
+    line ( image_tmp, Point(l[0],l[1]), Point(l[2],l[3]),Scalar(B, G, R), 1, CV_AA);
   }
+
+  boost::array<double, 2> L1_startPoint;
+  boost::array<double, 2> L1_endPoint;
+  boost::array<double, 2> L2_startPoint;
+  boost::array<double, 2> L2_endPoint;
+
+  double ax1=0, ay1=0, ax2=0, ay2=0, bx1=0, by1=0, bx2=0, by2=0;
+  //double d = 0;
+  double a1 = 0, b1 = 0, a2 = 0, b2 = 0, c1 = 0, d1 = 0, c2 = 0, d2 = 0;
+  int _findCorners = 0;
+  landmarkPoints.clear();
+
+  for (uint i = 0; i < lines.size() - 1; ++i) {
+    L1_startPoint = lines[i].getStart();
+    L1_endPoint = lines[i].getEnd();
+    L2_startPoint = lines[i+1].getStart();
+    L2_endPoint = lines[i+1].getEnd();
+
+    a1 = L1_startPoint[0];
+    b1 = L1_startPoint[1];
+
+    a2 = L1_endPoint[0];
+    b2 = L1_endPoint[1];
+
+    c1 = L2_startPoint[0];
+    d1 = L2_startPoint[1];
+
+    c2 = L2_endPoint[0];
+    d2 = L2_endPoint[1];
+    double k1 = 0.0;
+    double k2 = 0.0;
+    //d = (ay2-ay1) * (bx2-bx1) - (by2-by1) * (ax2-ax1);
+
+                    // y2 - y1
+    if ( abs( ( L1_endPoint[1] - L1_startPoint[1] ) * ( L2_endPoint[1] - L2_startPoint[1] ) + ( L1_endPoint[0] - L1_startPoint[0] ) * ( L2_endPoint[0] - L2_startPoint[0] ) ) < 0.7 )
+        if( abs( ( L1_endPoint[1] - L2_startPoint[1] ) * ( L1_endPoint[1] - L2_startPoint[1] ) + ( L1_endPoint[0] - L2_startPoint[0] ) * ( L1_endPoint[0] - L2_startPoint[0] ) ) < 0.5 )
+    {
+        k1 = (b2 -b1)/(a2 -a1);
+        k2 = (d2 -d1)/(c2 -c1);
+
+        cout << "k1 = " << k1 << endl;
+        cout << "k2 = " << k2 << endl;
+        landmarkPoints.push_back(iPoint());
+        landmarkPoints[_findCorners].x =((a2-a1)*(c2-c1)*(d2-b2)+(b2-b1)*(c2-c1)*a2-(d2-d1)*(a2-a1)*c2)/((b2-b1)*(c2-c1)-(d2-d1)*(a2-a1));
+        landmarkPoints[_findCorners].y =(b2-b1)/(a2-a1)*(landmarkPoints[_findCorners].x-a2)+b2;
+        _findCorners++;
+    }
+
+
+  }
+
+  for ( auto iter = landmarkPoints.begin(); iter != landmarkPoints.end(); iter ++ ){
+      std::cout << "                " << iter->x * len_shift + dx  << "         "  << iter->y * len_shift + dy << std::endl;
+      cv::circle( image_tmp, cv::Point((iter->x) * len_shift + dx, (iter->y) * len_shift + dy), 3, CV_RGB(0, 255, 255) );
+  }
+
+
+  std::cout << "find Corners --->" << _findCorners << std::endl;
 
   return image_tmp;
 }

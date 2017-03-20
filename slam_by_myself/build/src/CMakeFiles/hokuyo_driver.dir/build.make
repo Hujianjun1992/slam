@@ -57,38 +57,38 @@ include src/CMakeFiles/hokuyo_driver.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/hokuyo_driver.dir/flags.make
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o: src/CMakeFiles/hokuyo_driver.dir/flags.make
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o: ../src/hokuyo_driver1.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o"
-	cd /home/hxb/github/slam/slam_by_myself/build/src && g++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o -c /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver1.cpp
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: src/CMakeFiles/hokuyo_driver.dir/flags.make
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o: ../src/hokuyo_driver.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o"
+	cd /home/hxb/github/slam/slam_by_myself/build/src && g++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o -c /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.cpp
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.i"
-	cd /home/hxb/github/slam/slam_by_myself/build/src && g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver1.cpp > CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.i
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.i"
+	cd /home/hxb/github/slam/slam_by_myself/build/src && g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.cpp > CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.i
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.s"
-	cd /home/hxb/github/slam/slam_by_myself/build/src && g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver1.cpp -o CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.s
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.s"
+	cd /home/hxb/github/slam/slam_by_myself/build/src && g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.cpp -o CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.s
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.requires:
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.requires:
 
-.PHONY : src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.requires
+.PHONY : src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.requires
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.provides: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.requires
-	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.provides.build
-.PHONY : src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.provides
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.provides: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.provides.build
+.PHONY : src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.provides
 
-src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.provides.build: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o
+src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.provides.build: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
 
 
 # Object files for target hokuyo_driver
 hokuyo_driver_OBJECTS = \
-"CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o"
+"CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o"
 
 # External object files for target hokuyo_driver
 hokuyo_driver_EXTERNAL_OBJECTS =
 
-../lib/libhokuyo_driver.a: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o
+../lib/libhokuyo_driver.a: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
 ../lib/libhokuyo_driver.a: src/CMakeFiles/hokuyo_driver.dir/build.make
 ../lib/libhokuyo_driver.a: src/CMakeFiles/hokuyo_driver.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/hxb/github/slam/slam_by_myself/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ../../lib/libhokuyo_driver.a"
@@ -100,7 +100,7 @@ src/CMakeFiles/hokuyo_driver.dir/build: ../lib/libhokuyo_driver.a
 
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/build
 
-src/CMakeFiles/hokuyo_driver.dir/requires: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o.requires
+src/CMakeFiles/hokuyo_driver.dir/requires: src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o.requires
 
 .PHONY : src/CMakeFiles/hokuyo_driver.dir/requires
 

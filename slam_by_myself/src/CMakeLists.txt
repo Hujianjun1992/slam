@@ -25,7 +25,7 @@ target_link_libraries(line_extraction_hokuyo line line_extraction hokuyo)
 add_library(clusering clusering.cpp)
 add_library(WeightedFit WeightedFit.cpp)
 add_library(hokuyo hokuyo.cpp)
-add_library(hokuyo_driver hokuyo_driver1.cpp)
+add_library(hokuyo_driver hokuyo_driver.cpp)
 target_link_libraries(hokuyo_driver hokuyo WeightedFit  clusering line_extraction_hokuyo ${Boost_LIBRARIES} ${OpenCV_LIBS})
 
 

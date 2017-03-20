@@ -326,32 +326,32 @@ hokuyo.cpp.s:
 	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo.dir/build.make src/CMakeFiles/hokuyo.dir/hokuyo.cpp.s
 .PHONY : hokuyo.cpp.s
 
-hokuyo_driver1.o: hokuyo_driver1.cpp.o
+hokuyo_driver.o: hokuyo_driver.cpp.o
 
-.PHONY : hokuyo_driver1.o
+.PHONY : hokuyo_driver.o
 
 # target to build an object file
-hokuyo_driver1.cpp.o:
-	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o
-.PHONY : hokuyo_driver1.cpp.o
+hokuyo_driver.cpp.o:
+	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o
+.PHONY : hokuyo_driver.cpp.o
 
-hokuyo_driver1.i: hokuyo_driver1.cpp.i
+hokuyo_driver.i: hokuyo_driver.cpp.i
 
-.PHONY : hokuyo_driver1.i
+.PHONY : hokuyo_driver.i
 
 # target to preprocess a source file
-hokuyo_driver1.cpp.i:
-	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.i
-.PHONY : hokuyo_driver1.cpp.i
+hokuyo_driver.cpp.i:
+	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.i
+.PHONY : hokuyo_driver.cpp.i
 
-hokuyo_driver1.s: hokuyo_driver1.cpp.s
+hokuyo_driver.s: hokuyo_driver.cpp.s
 
-.PHONY : hokuyo_driver1.s
+.PHONY : hokuyo_driver.s
 
 # target to generate assembly for a file
-hokuyo_driver1.cpp.s:
-	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.s
-.PHONY : hokuyo_driver1.cpp.s
+hokuyo_driver.cpp.s:
+	cd /home/hxb/github/slam/slam_by_myself/build && $(MAKE) -f src/CMakeFiles/hokuyo_driver.dir/build.make src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.s
+.PHONY : hokuyo_driver.cpp.s
 
 laser_data_show.o: laser_data_show.cpp.o
 
@@ -514,9 +514,9 @@ help:
 	@echo "... hokuyo.o"
 	@echo "... hokuyo.i"
 	@echo "... hokuyo.s"
-	@echo "... hokuyo_driver1.o"
-	@echo "... hokuyo_driver1.i"
-	@echo "... hokuyo_driver1.s"
+	@echo "... hokuyo_driver.o"
+	@echo "... hokuyo_driver.i"
+	@echo "... hokuyo_driver.s"
 	@echo "... laser_data_show.o"
 	@echo "... laser_data_show.i"
 	@echo "... laser_data_show.s"

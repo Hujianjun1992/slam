@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/hxb/github/slam/slam_by_myself/src/hokuyo_driver1.cpp" "/home/hxb/github/slam/slam_by_myself/build/src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver1.cpp.o"
+  "/home/hxb/github/slam/slam_by_myself/src/hokuyo_driver.cpp" "/home/hxb/github/slam/slam_by_myself/build/src/CMakeFiles/hokuyo_driver.dir/hokuyo_driver.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
